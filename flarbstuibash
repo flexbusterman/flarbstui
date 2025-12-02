@@ -1,0 +1,853 @@
+#!/usr/bin/env bash
+
+sudo pacman -Syu --needed --noconfirm sudo base-devel tmux neovim git wget openssh brightnessctl zsh unzip fzf exa imlib2 jq timeshift xclip dialog libnotify figlet || exit 1
+
+# Arch post-install TUI with actionable menu items and completion checks
+# Requirements to run the menu: dialog (auto-installed on first run if possible)
+# You can run individual actions from the menu and refresh to see completion status.
+
+# ---------------------------------------------------------
+# Helpers
+# ---------------------------------------------------------
+STATE_DIR="$HOME/.local/state/flarbstui"
+FLARBSTUI_DIR="$HOME/.local/src/flarbstui"
+INSTALLPACKAGES="$FLARBSTUI_DIR/installpackages"
+PKG_JSON="$FLARBSTUI_DIR/packages.json"
+
+mkdir -p "$STATE_DIR" "$HOME/.local/src"
+
+notify() {
+	if command -v notify-send >/dev/null 2>&1; then
+		notify-send "$@"
+	else
+		echo "NOTIFY: $*"
+	fi
+}
+
+banner() {
+	if command -v figlet >/dev/null 2>&1; then
+		figlet "$@"
+	else
+		echo "===== $* ====="
+	fi
+}
+
+need_dialog() {
+	if ! command -v dialog >/dev/null 2>&1; then
+		echo "dialog not found. Attempting to install..."
+		if command -v sudo >/dev/null 2>&1; then
+			sudo pacman -Sy --noconfirm dialog || true
+		elif [ "$(id -u)" -eq 0 ]; then
+			pacman -Sy --noconfirm dialog || true
+		fi
+	fi
+
+	if ! command -v dialog >/dev/null 2>&1; then
+		echo "dialog is required to run the TUI. Please install it: sudo pacman -S dialog"
+		exit 1
+	fi
+}
+
+pkg_installed() {
+	pacman -Q "$1" >/dev/null 2>&1
+}
+
+# Returns success (0) if at least one package in a group is installed, else 1
+check_group_any_installed() {
+	local group="$1"
+	[ -f "$PKG_JSON" ] || return 1
+	command -v jq >/dev/null 2>&1 || return 1
+	local any=1
+	while IFS= read -r pkg; do
+		if pkg_installed "$pkg"; then
+			any=0
+			break
+		fi
+	done < <(jq -r --arg group "$group" '.packages[$group][].name' "$PKG_JSON" 2>/dev/null)
+	return $any
+}
+
+# ---------------------------------------------------------
+# Item definitions (name, description, check command, function)
+# Keys: 1..9 then a..j (as requested)
+# ---------------------------------------------------------
+ITEM_1=(
+	"Pre Packages"
+	"Sync and install core utilities (sudo, base-devel, dialog, libnotify, figlet, etc.)."
+	"command -v tmux >/dev/null 2>&1 && command -v nvim >/dev/null 2>&1 && command -v dialog >/dev/null 2>&1 && command -v figlet >/dev/null 2>&1 && command -v notify-send >/dev/null 2>&1"
+	"pre_packages"
+)
+
+ITEM_2=(
+	"FlarbsTUI"
+	"Clone flarbstui into ~/.local/src and run its bootstrap script."
+	"[ -d \"$HOME/.local/src/flarbstui/.git\" ]"
+	"install_flarbstui"
+)
+
+ITEM_3=(
+	"System Config"
+	"Set pacman colors, parallel downloads, multilib, MAKEFLAGS, disable PC speaker."
+	"grep -q '^blacklist pcspkr' /etc/modprobe.d/nobeep.conf"
+	"system_config"
+)
+
+ITEM_4=(
+	"Git Config"
+	"Global git: pull.rebase=true, hide untracked files in status."
+	"[ \"\$(git config --global --get pull.rebase 2>/dev/null)\" = \"true\" ] && [ \"\$(git config --global --get status.showUntrackedFiles 2>/dev/null)\" = \"no\" ]"
+	"git_config"
+)
+
+ITEM_5=(
+	"GPG2 Setup"
+	"Import a GPG key (optional), trust it, enable pam_gnupg and gpg-agent preset caching."
+	"grep -q 'allow-preset-passphrase' \"\$HOME/.gnupg/gpg-agent.conf\" 2>/dev/null && grep -q 'pam_gnupg' /etc/pam.d/system-local-login"
+	"gpg2_setup"
+)
+
+ITEM_6=(
+	"Zsh"
+	"Set zsh as default shell and install timewarrior completion."
+	"[ \"\$(getent passwd \"$USER\" | cut -d: -f7)\" = \"/usr/bin/zsh\" ]"
+	"setup_zsh"
+)
+
+ITEM_7=(
+	"Dotfiles"
+	"Clone bare dotfiles repo to ~/.dot.git and check out."
+	"[ -d \"$HOME/.dot.git\" ]"
+	"setup_dotfiles"
+)
+
+ITEM_8=(
+	"Private Dotfiles"
+	"Clone bare private dotfiles to ~/.pdot.git and check out."
+	"[ -d \"$HOME/.pdot.git\" ]"
+	"setup_private_dotfiles"
+)
+
+ITEM_9=(
+	"Main Packages"
+	"Install main package set via flarbstui installpackages."
+	"check_group_any_installed main"
+	"install_main_packages"
+)
+
+ITEM_a=(
+	"Extra Packages"
+	"Install extra packages via flarbstui installpackages."
+	"check_group_any_installed extra"
+	"install_extra_packages"
+)
+
+ITEM_b=(
+	"Audio Packages"
+	"Install audio packages via flarbstui installpackages."
+	"check_group_any_installed audio"
+	"install_audio_packages"
+)
+
+ITEM_c=(
+	"Password Store"
+	"Optionally clone your password store to ~/.password-store."
+	"[ -d \"$HOME/.password-store/.git\" ]"
+	"setup_password_store"
+)
+
+ITEM_d=(
+	"Dropbox Setup"
+	"Assist with linking Dropbox content (bookmarks, Pictures, Music, Documents, Yazi, ~/Dropbox)."
+	"[ -h \"$HOME/Dropbox\" ] || [ -h \"$HOME/.config/qutebrowser/bookmarks/urls\" ]"
+	"dropbox_setup"
+)
+
+ITEM_e=(
+	"SSH Setup"
+	"Create ~/.ssh/sockets, start agent, add optional keys."
+	"[ -d \"$HOME/.ssh/sockets\" ]"
+	"ssh_setup"
+)
+
+ITEM_f=(
+	"Clone Custom Software"
+	"Clone and build dwm, sxiv, slstatus, dmenu."
+	"[ -d \"$HOME/.local/src/dwm\" ] && [ -d \"$HOME/.local/src/sxiv\" ] && [ -d \"$HOME/.local/src/slstatus\" ] && [ -d \"$HOME/.local/src/dmenu\" ]"
+	"clone_custom_software"
+)
+
+ITEM_g=(
+	"VST setup"
+	"Copy TAL VST3 plugins from Dropbox into ~/.vst3."
+	"[ -d \"$HOME/.vst3\" ] && [ -n \"\$(ls -A \"$HOME/.vst3\" 2>/dev/null)\" ]"
+	"vst_setup"
+)
+
+ITEM_h=(
+	"Reaper Setup"
+	"Link REAPER config directories to Dropbox content."
+	"[ -d \"$HOME/.config/REAPER\" ] && [ -h \"$HOME/.config/REAPER/ColorThemes\" ]"
+	"reaper_setup"
+)
+
+ITEM_i=(
+	"Yay"
+	"Install yay from AUR if not present."
+	"command -v yay >/dev/null 2>&1"
+	"install_yay"
+)
+
+ITEM_j=(
+	"Post-Install System Setup"
+	"Tune systemd stop timeout, link root nvim config, add user to groups, fix tray/BT icons."
+	"grep -q '^DefaultTimeoutStopSec=10s' /etc/systemd/system.conf"
+	"post_install_system_setup"
+)
+
+# ---------------------------------------------------------
+# Functions (actions)
+# ---------------------------------------------------------
+
+# ITEM_1 actions
+pre_packages() {
+	banner "Pre Packages"
+	sudo pacman -Syu --needed --noconfirm \
+		sudo base-devel \
+		tmux neovim git wget openssh brightnessctl zsh unzip fzf exa imlib2 jq timeshift xclip dialog \
+		libnotify figlet || return 1
+
+	notify "Pre packages installed"
+}
+
+# ITEM_2 actions
+install_flarbstui() {
+	banner "FlarbsTUI"
+	mkdir -p "$HOME/.local/src"
+	if [ ! -d "$FLARBSTUI_DIR/.git" ]; then
+		git clone https://github.com/flexbusterman/flarbstui.git "$FLARBSTUI_DIR" || return 1
+	fi
+
+	if [ -x "$FLARBSTUI_DIR/flarbstuibash" ]; then
+		(cd "$FLARBSTUI_DIR" && ./flarbstuibash) || true
+	elif [ -f "$FLARBSTUI_DIR/flarbstuibash" ]; then
+		(cd "$FLARBSTUI_DIR" && bash ./flarbstuibash) || true
+	else
+		echo "Note: flarbstuibash not found in $FLARBSTUI_DIR"
+	fi
+
+	notify "FlarbsTUI cloned"
+}
+
+# ITEM_3 actions
+system_config() {
+	banner "System Config"
+	mkdir -p "$HOME/Downloads"
+
+	# pacman tweaks
+	sudo sed -i 's/^#Color/Color/' /etc/pacman.conf
+	sudo sed -i 's/^#ParallelDownloads = .*/ParallelDownloads = 8/' /etc/pacman.conf
+	sudo sed -i '/^\[multilib\]/!{x;/./!{x;b};x}; /^#\[multilib\]$/,/^#Include/ {s/^#\[multilib\]/\[multilib\]/; s/^#Include/Include/}' /etc/pacman.conf
+
+	# makepkg flags
+	if grep -q '^#MAKEFLAGS="-j2"' /etc/makepkg.conf; then
+		sudo sed -i 's/^#MAKEFLAGS="-j2"/MAKEFLAGS="-j4"/' /etc/makepkg.conf
+	elif grep -q '^MAKEFLAGS=' /etc/makepkg.conf; then
+		sudo sed -i 's/^MAKEFLAGS=.*/MAKEFLAGS="-j4"/' /etc/makepkg.conf
+	else
+		echo 'MAKEFLAGS="-j4"' | sudo tee -a /etc/makepkg.conf >/dev/null
+	fi
+
+	# disable PC speaker
+	if ! grep -q "^blacklist pcspkr" /etc/modprobe.d/nobeep.conf 2>/dev/null; then
+		sudo rmmod pcspkr 2>/dev/null || true
+		echo "blacklist pcspkr" | sudo tee /etc/modprobe.d/nobeep.conf >/dev/null
+	else
+		echo "PC speaker already blacklisted."
+	fi
+
+	notify "System config done"
+}
+
+# ITEM_4 actions
+git_config() {
+	banner "Git Config"
+	git config --global pull.rebase true
+	git config --global status.showUntrackedFiles no
+
+	notify "Git configured"
+}
+
+# ITEM_5 actions
+gpg2_setup() {
+	banner "GPG2 Setup"
+
+	gpgfileinput() {
+		echo -e "\nInput the full path to your gpg file"
+		read -r gpgfile
+		gpgfile="${gpgfile/#\~/$HOME}"
+	}
+
+gpgfileinput
+gpgaction=true
+while $gpgaction; do
+	if [ ! -f "$gpgfile" ]; then
+		echo "File not found. (a)gain, (c)ontinue without adding the gpg key, or (q)uit?"
+		read -r -n 1 -s takeaction
+		echo
+		case $takeaction in
+			c) gpgaction=false ;;
+			a) gpgfileinput ;;
+			q) return 1 ;;
+			*) echo "Invalid option." ;;
+		esac
+	else
+		echo "File found: '$gpgfile'"
+		gpgaction=false
+	fi
+done
+
+if [ -f "$gpgfile" ]; then
+	echo "Importing GPG key from '$gpgfile'"
+	gpg2 --import "$gpgfile" || true
+	KEY_ID=$(gpg2 --list-keys --with-colons | awk -F: '/^pub/{print $5; exit}')
+	if [ -n "$KEY_ID" ]; then
+		echo "Trusting the imported GPG key."
+		printf "trust\n5\nsave\n" | gpg2 --command-fd 0 --edit-key "$KEY_ID"
+	else
+		echo "Failed to retrieve the GPG key ID."
+	fi
+else
+	echo "GPG file import skipped."
+fi
+
+if ! grep -q "auth optional pam_gnupg.so" /etc/pam.d/system-local-login 2>/dev/null; then
+	banner "pam_gnupg"
+	sudo bash -c 'echo -e "auth optional pam_gnupg.so\nsession optional pam_gnupg.so" >> /etc/pam.d/system-local-login'
+else
+	echo "system-local-login already configured"
+fi
+
+if gpg -K --with-keygrip >/dev/null 2>&1; then
+	mkdir -p "$HOME/.gnupg"
+	if ! grep -q "allow-preset-passphrase" "$HOME/.gnupg/gpg-agent.conf" 2>/dev/null; then
+		{
+			echo "allow-preset-passphrase"
+			echo "default-cache-ttl 34560000"
+			echo "max-cache-ttl 34560000"
+		} >>"$HOME/.gnupg/gpg-agent.conf"
+else
+	echo "~/.gnupg/gpg-agent.conf already configured"
+	fi
+
+	gpg -K --with-keygrip | awk 'c&&!--c; /ssb/{c=1;}' | awk '{print $3}' >>"$HOME/.pam-gnupg"
+	awk -i inplace '!a[$0]++' "$HOME/.pam-gnupg" 2>/dev/null || sort -u "$HOME/.pam-gnupg" -o "$HOME/.pam-gnupg"
+else
+	echo "No GPG keys found"
+fi
+
+notify "GPG setup done"
+}
+
+# ITEM_6 actions
+setup_zsh() {
+	banner "Zsh"
+	if command -v chsh >/dev/null 2>&1; then
+		sudo chsh -s /usr/bin/zsh "${USER}"
+	else
+		echo "chsh not found; cannot change login shell."
+	fi
+
+	if [ -f /usr/share/zsh/functions/Completion/Zsh/_timew ]; then
+		echo "Timewarrior zsh completion already installed"
+	else
+		if [ ! -d "$HOME/.local/src/timewarrior_zsh_completion" ]; then
+			mkdir -p "$HOME/.local/src"
+			git clone https://github.com/ianmkenney/timewarrior_zsh_completion.git "$HOME/.local/src/timewarrior_zsh_completion" || true
+		fi
+		if [ -f "$HOME/.local/src/timewarrior_zsh_completion/_timew" ]; then
+			sudo mkdir -p /usr/share/zsh/functions/Completion/Zsh/
+			sudo cp "$HOME/.local/src/timewarrior_zsh_completion/_timew" /usr/share/zsh/functions/Completion/Zsh/
+		fi
+	fi
+
+	notify "Zsh configured"
+}
+
+append_once() {
+	local line="$1"
+	local file="$2"
+	grep -qxF "$line" "$file" 2>/dev/null || echo "$line" >>"$file"
+}
+
+# ITEM_7 actions
+setup_dotfiles() {
+	banner "Dotfiles"
+	append_once "alias dot='/usr/bin/git --git-dir=$HOME/.dot.git/ --work-tree=$HOME'" "$HOME/.bashrc"
+	append_once "alias dot='/usr/bin/git --git-dir=$HOME/.dot.git/ --work-tree=$HOME'" "$HOME/.zshrc"
+
+	if [ -n "$ZSH_VERSION" ] || [ "$SHELL" = "/usr/bin/zsh" ]; then
+		# shellcheck disable=SC1090
+		source "$HOME/.zshrc"
+	elif [ -n "$BASH_VERSION" ]; then
+		# shellcheck disable=SC1090
+		source "$HOME/.bashrc"
+	fi
+
+	append_once ".dot.git" "$HOME/.gitignore"
+
+	if [ "$USER" = "flex" ]; then
+		if [ -f "$HOME/.ssh/git" ]; then
+			chmod 600 "$HOME/.ssh/git"* 2>/dev/null || true
+			eval "$(ssh-agent -s)"
+			ssh-add "$HOME/.ssh/git" || true
+		fi
+		mkdir -p "$HOME/.ssh/sockets"
+		git clone --bare git@github.com:flexbusterman/dotfiles.git "$HOME/.dot.git" || true
+	else
+		git clone --bare https://github.com/flexbusterman/dotfiles.git "$HOME/.dot.git" || true
+	fi
+
+	/usr/bin/git --git-dir="$HOME/.dot.git/" --work-tree="$HOME" reset --hard || true
+	/usr/bin/git --git-dir="$HOME/.dot.git/" --work-tree="$HOME" config --local status.showUntrackedFiles no || true
+
+	if [ -f "$HOME/.config/etc/X11/xorg.conf.d/40-libinput.conf" ]; then
+		sudo mkdir -p /etc/X11/xorg.conf.d/
+		sudo cp "$HOME/.config/etc/X11/xorg.conf.d/40-libinput.conf" /etc/X11/xorg.conf.d/
+	fi
+
+	notify "Dotfiles installed"
+}
+
+# ITEM_8 actions
+setup_private_dotfiles() {
+	banner "Private Dotfiles"
+	append_once "alias pdot='/usr/bin/git --git-dir=$HOME/.pdot.git/ --work-tree=$HOME'" "$HOME/.bashrc"
+	append_once "alias pdot='/usr/bin/git --git-dir=$HOME/.pdot.git/ --work-tree=$HOME'" "$HOME/.zshrc"
+
+	if [ -n "$ZSH_VERSION" ] || [ "$SHELL" = "/usr/bin/zsh" ]; then
+		# shellcheck disable=SC1090
+		source "$HOME/.zshrc"
+	elif [ -n "$BASH_VERSION" ]; then
+		# shellcheck disable=SC1090
+		source "$HOME/.bashrc"
+	fi
+
+	append_once ".pdot.git" "$HOME/.gitignore"
+
+	if [ "$USER" = "flex" ]; then
+		if [ -f "$HOME/.ssh/git" ]; then
+			chmod 600 "$HOME/.ssh/git"* 2>/dev/null || true
+			eval "$(ssh-agent -s)"
+			ssh-add "$HOME/.ssh/git" || true
+		fi
+		mkdir -p "$HOME/.ssh/sockets"
+		git clone --bare git@github.com:flexbusterman/pdotfiles.git "$HOME/.pdot.git" || true
+	else
+		git clone --bare https://github.com/flexbusterman/pdotfiles.git "$HOME/.pdot.git" || true
+	fi
+
+	/usr/bin/git --git-dir="$HOME/.pdot.git/" --work-tree="$HOME" reset --hard || true
+	/usr/bin/git --git-dir="$HOME/.pdot.git/" --work-tree="$HOME" config --local status.showUntrackedFiles no || true
+
+	if [ -f "$HOME/.config/etc/X11/xorg.conf.d/40-libinput.conf" ]; then
+		sudo mkdir -p /etc/X11/xorg.conf.d/
+		sudo cp "$HOME/.config/etc/X11/xorg.conf.d/40-libinput.conf" /etc/X11/xorg.conf.d/
+	fi
+
+	notify "Private dotfiles installed"
+}
+
+ensure_yay_or_prompt() {
+	if command -v yay >/dev/null 2>&1; then
+		return 0
+	fi
+	echo "This action requires 'yay'. Install it now? (y/n)"
+	read -r -n 1 ans
+	echo
+	if [[ $ans == "y" ]]; then
+		install_yay
+		command -v yay >/dev/null 2>&1
+		return
+	fi
+	echo "Skipping because 'yay' is not installed."
+	return 1
+}
+
+# ITEM_9 actions
+install_main_packages() {
+	banner "Main Packages"
+	ensure_yay_or_prompt || return 1
+	if [ -x "$INSTALLPACKAGES" ]; then
+		"$INSTALLPACKAGES" main || true
+	else
+		echo "installpackages not found at $INSTALLPACKAGES (clone FlarbsTUI first)."
+		return 1
+	fi
+}
+
+# ITEM_a actions
+install_extra_packages() {
+	banner "Extra Packages"
+	ensure_yay_or_prompt || return 1
+	if [ -x "$INSTALLPACKAGES" ]; then
+		"$INSTALLPACKAGES" extra || true
+	else
+		echo "installpackages not found at $INSTALLPACKAGES (clone FlarbsTUI first)."
+		return 1
+	fi
+}
+
+# ITEM_b actions
+install_audio_packages() {
+	banner "Audio Packages"
+	ensure_yay_or_prompt || return 1
+	if [ -x "$INSTALLPACKAGES" ]; then
+		"$INSTALLPACKAGES" audio || true
+	else
+		echo "installpackages not found at $INSTALLPACKAGES (clone FlarbsTUI first)."
+		return 1
+	fi
+}
+
+# ITEM_c actions
+setup_password_store() {
+	banner "Password Store"
+	read -r -n 1 -p "Clone password store? (y/n) " clonepass
+	echo
+	if [[ $clonepass == "y" ]]; then
+		echo "Cloning password store"
+		eval "$(ssh-agent -s)"
+		if [ -f "$HOME/.ssh/digitalocean" ]; then
+			chmod 600 "$HOME/.ssh/digitalocean"* 2>/dev/null || true
+			ssh-add "$HOME/.ssh/digitalocean" || true
+		fi
+		rm -rf "$HOME/.password-store/"
+		git clone flex@christianaugustin.com:.password-store "$HOME/.password-store" || return 1
+	fi
+}
+
+# ITEM_d actions
+dropbox_setup() {
+	banner "Dropbox Setup"
+	read -r -n 1 -p "Setup Dropbox? (y/n) " dropboxSetup
+	echo
+	if [[ $dropboxSetup == "y" ]]; then
+		echo "Please setup Dropbox and sync:"
+		echo "2025 FOTO/SCREENSHOTS"
+		echo "ADMINISTRATIVT"
+		echo "BOOKMARKS"
+		echo "DROPSYNC"
+		echo "REAPER"
+		echo "VST"
+		read -r -n 1 -p "Press y when you have done so or any other key to skip Dropbox linking: " dropboxInstalled
+		echo
+		if [[ $dropboxInstalled == "y" ]]; then
+			rm -rf "$HOME/.config/qutebrowser/bookmarks/"
+			mkdir -p "$HOME/.config/qutebrowser/bookmarks/"
+			ln -sf "$HOME/Dropbox/BOOKMARKS/urls" "$HOME/.config/qutebrowser/bookmarks/urls"
+
+			if [ -d "$HOME/Pictures" ]; then
+				read -r -n 1 -p "Remove existing Pictures folder? (y/n) " removePictures
+				echo
+				if [[ $removePictures == "y" ]]; then
+					rm -rf "$HOME/Pictures"
+					ln -s "$HOME/DROPCOX Dropbox/Christian Augustin/2025 FOTO/" "$HOME/Pictures"
+				fi
+			else
+				ln -s "$HOME/DROPCOX Dropbox/Christian Augustin/2025 FOTO/" "$HOME/Pictures"
+			fi
+		fi
+
+		read -r -n 1 -p "Link Dropbox MUSIC folder to ~/Music? (y/n) " musicLink
+		echo
+		if [[ $musicLink == "y" ]];      then
+			if [ ! -e "$HOME/Music" ]; then
+				ln -s "$HOME/Dropbox/MUSIC/" "$HOME/Music"
+			else
+				echo "Music folder already exists"
+			fi
+		fi
+
+		if [ ! -e "$HOME/Documents" ]; then
+			ln -s "$HOME/DROPCOX Dropbox/Christian Augustin/ADMINISTRATIVT/2025 CHRISTIAN AUGUSTIN" "$HOME/Documents"
+		fi
+
+		read -r -n 1 -p "Link Yazi Bookmarks? (y/n) " yaziBookmarks
+		echo
+		if [[ $yaziBookmarks == "y" ]]; then
+			mkdir -p "$HOME/.local/state/yazi/"
+			rm -f "$HOME/.local/state/yazi/.dds"
+			ln -s "$HOME/DROPCOX Dropbox/Christian Augustin/BOOKMARKS/.dds" "$HOME/.local/state/yazi/.dds"
+		fi
+
+		if [ ! -e "$HOME/Dropbox" ]; then
+			echo "Linking Dropbox folder"
+			ln -s "$HOME/DROPCOX Dropbox/Christian Augustin/" "$HOME/Dropbox"
+		else
+			echo "~/Dropbox folder already present"
+		fi
+	fi
+}
+
+# ITEM_e actions
+ssh_setup() {
+	banner "SSH Setup"
+	mkdir -p "$HOME/.ssh/sockets"
+	chmod 700 "$HOME/.ssh" 2>/dev/null || true
+	# secure key permissions if any
+	find "$HOME/.ssh" -type f -exec chmod 600 {} \; 2>/dev/null || true
+
+	eval "$(ssh-agent -s)"
+	[ -f "$HOME/.ssh/github" ] && ssh-add "$HOME/.ssh/github" || echo "Key ~/.ssh/github not found (skipping add)"
+
+	notify "SSH setup complete"
+}
+
+# ITEM_f actions
+clone_custom_software() {
+	banner "Custom Software"
+	mkdir -p "$HOME/.local/src"
+
+	cd "$HOME/.local/src" || return 1
+
+	clone_build() {
+		local repo="$1"
+		local dir="$2"
+		if [ ! -d "$dir/.git" ]; then
+			git clone "git@github.com:flexbusterman/${repo}.git" "$dir" 2>/dev/null || \
+				git clone "https://github.com/flexbusterman/${repo}.git" "$dir" || return 1
+		fi
+		(cd "$dir" && make && sudo make clean install) || return 1
+	}
+
+clone_build "dwm" "dwm" || true
+clone_build "sxiv" "sxiv" || true
+clone_build "slstatus" "slstatus" || true
+clone_build "dmenu" "dmenu" || true
+
+notify "Custom software built"
+}
+
+# ITEM_g actions
+vst_setup() {
+	banner "VST setup"
+	read -r -n 1 -p "VST setup? (y/n) " vstSetup
+	echo
+	if [[ $vstSetup == "y" ]]; then
+		mkdir -p "$HOME/.vst3"
+		cp -r "$HOME/Dropbox/VST/TAL-Chorus/"* "$HOME/.vst3/" 2>/dev/null || true
+		cp -r "$HOME/Dropbox/VST/TAL-Chorus-LX/"* "$HOME/.vst3/" 2>/dev/null || true
+		cp -r "$HOME/Dropbox/VST/TAL-Filter/"* "$HOME/.vst3/" 2>/dev/null || true
+		cp -r "$HOME/Dropbox/VST/TAL-Filter-2/"* "$HOME/.vst3/" 2>/dev/null || true
+		cp -r "$HOME/Dropbox/VST/TAL-J-8/"* "$HOME/.vst3/" 2>/dev/null || true
+		cp -r "$HOME/Dropbox/VST/TAL-NoiseMaker/"* "$HOME/.vst3/" 2>/dev/null || true
+		# cp -r "$HOME/Dropbox/VST/TAL-Reverb/"* "$HOME/.vst3/" 2>/dev/null || true
+		cp -r "$HOME/Dropbox/VST/TAL-Reverb-4/"* "$HOME/.vst3/" 2>/dev/null || true
+		cp -r "$HOME/Dropbox/VST/TAL-Sampler/"* "$HOME/.vst3/" 2>/dev/null || true
+		cp -r "$HOME/Dropbox/VST/TAL-U-NO-LX/"* "$HOME/.vst3/" 2>/dev/null || true
+		cp -r "$HOME/Dropbox/VST/TAL-Vocoder/"* "$HOME/.vst3/" 2>/dev/null || true
+		cp -r "$HOME/Dropbox/VST/TAL-Vocoder-2/"* "$HOME/.vst3/" 2>/dev/null || true
+	fi
+}
+
+# ITEM_h actions
+reaper_setup() {
+	banner "Reaper setup"
+	read -r -n 1 -p "Reaper setup? (y/n) " reaperSetup
+	echo
+	if [[ $reaperSetup == "y" ]]; then
+		mkdir -p "$HOME/.config/REAPER/"
+
+		local dirs=(
+			"UserPlugins"
+			"Configurations"
+			"FXChains"
+			"Song Templates"
+			"Grooves"
+			"KeyMaps"
+			"Scripts"
+			"Effects"
+			"Custom Colors"
+			"ProjectTemplates"
+			"ColorThemes"
+		)
+
+		for dir in "${dirs[@]}"; do
+			local dest="$HOME/.config/REAPER/$dir"
+			if [ -d "$dest" ] && [ ! -L "$dest" ]; then
+				read -r -n 1 -p "Remove existing $dir? (y/n) " removeDir
+				echo
+				[[ $removeDir == "y" ]] && rm -rf "$dest"
+			fi
+			if [ ! -L "$dest" ]; then
+				read -r -n 1 -p "Link $dir? (y/n) " linkDir
+				echo
+				if [[ $linkDir == "y" ]]; then
+					ln -s "$HOME/Dropbox/REAPER/$dir" "$dest"
+				fi
+			fi
+		done
+
+		if [ -d "$HOME/.config/REAPER/Scripts/reaper-keys/internal" ]; then
+			if [ -d "$HOME/.config/REAPER/Scripts/reaper-keys/internal/definitions" ] && [ ! -L "$HOME/.config/REAPER/Scripts/reaper-keys/internal/definitions" ]; then
+				rm -rf "$HOME/.config/REAPER/Scripts/reaper-keys/internal/definitions"
+			fi
+			if [ ! -e "$HOME/.config/REAPER/Scripts/reaper-keys/internal/definitions" ]; then
+				ln -s "$HOME/DROPCOX Dropbox/Christian Augustin/REAPER/custom-reaper-keys-definitions" \
+					"$HOME/.config/REAPER/Scripts/reaper-keys/internal/definitions"
+			fi
+		fi
+	fi
+}
+
+# ITEM_i actions
+install_yay() {
+	banner "Yay"
+	if ! command -v yay >/dev/null 2>&1; then
+		mkdir -p "$HOME/.local/src/"
+		cd "$HOME/.local/src/" || return 1
+		if [ ! -d yay ]; then
+			git clone https://aur.archlinux.org/yay.git yay || return 1
+		fi
+		cd yay || return 1
+		makepkg -si --noconfirm || return 1
+	else
+		echo "Yay is already installed."
+	fi
+}
+
+# ITEM_j actions
+post_install_system_setup() {
+	banner "System post-install"
+	# systemd stop timeout
+	if grep -q '^#DefaultTimeoutStopSec=90s' /etc/systemd/system.conf; then
+		sudo sed -i 's/^#DefaultTimeoutStopSec=90s/DefaultTimeoutStopSec=10s/' /etc/systemd/system.conf
+	elif grep -q '^DefaultTimeoutStopSec=' /etc/systemd/system.conf; then
+		sudo sed -i 's/^DefaultTimeoutStopSec=.*/DefaultTimeoutStopSec=10s/' /etc/systemd/system.conf
+	else
+		echo 'DefaultTimeoutStopSec=10s' | sudo tee -a /etc/systemd/system.conf >/dev/null
+	fi
+	sudo systemctl daemon-reload
+
+	# root nvim config
+	sudo mkdir -p /root/.config
+	if [ -e /root/.config/nvim ] && [ ! -L /root/.config/nvim ]; then
+		echo "Root /root/.config/nvim exists and is not a symlink; skipping link."
+	else
+		sudo rm -f /root/.config/nvim
+		sudo ln -s "$HOME/.config/nvim" /root/.config/nvim
+	fi
+
+	# user groups
+	for grp in realtime input video games docker libvirt; do
+		sudo usermod -aG "$grp" "$USER" || true
+	done
+
+	# monochrome tray icons (if installed)
+	if command -v hardcode-tray >/dev/null 2>&1; then
+		sudo -E hardcode-tray --conversion-tool RSVGConvert --size 16 --theme Papirus || true
+	fi
+
+	# fix bluetooth icons (if dconf available)
+	if command -v dconf >/dev/null 2>&1; then
+		dconf write /org/blueberry/use-symbolic-icons false || true
+	fi
+
+	# aerc permissions (if present)
+	[ -f "$HOME/.config/aerc/accounts.conf" ] && chmod 600 "$HOME/.config/aerc/accounts.conf"
+
+	notify "Post-install system setup done"
+}
+
+# ---------------------------------------------------------
+# Build the dialog menu dynamically
+# Includes:
+#   - Action items
+#   - Refresh
+#   - Quit
+# ---------------------------------------------------------
+build_menu() {
+	OPTIONS=()
+
+	# Preserve specific order 1..9, a..j
+	local ORDERED_KEYS=(1 2 3 4 5 6 7 8 9 a b c d e f g h i j)
+
+	for i in "${ORDERED_KEYS[@]}"; do
+		if ! declare -p "ITEM_${i}" >/dev/null 2>&1; then
+			continue
+		fi
+		local name_var="ITEM_${i}[0]"
+		local check_var="ITEM_${i}[2]"
+
+		local name="${!name_var}"
+		local check_cmd="${!check_var}"
+
+		# Check completion status
+		if eval "$check_cmd" >/dev/null 2>&1; then
+			status="[✔]"
+		else
+			status="[ ]"
+		fi
+
+		OPTIONS+=("$i" "$status $name")
+	done
+
+	# Add special menu items
+	OPTIONS+=("refresh" "Manually refresh action statuses")
+	OPTIONS+=("quit"    "Exit program")
+}
+
+# ---------------------------------------------------------
+# Main menu loop
+# ---------------------------------------------------------
+# 0 = auto size
+HEIGHT=0
+WIDTH=0
+CHOICE_HEIGHT=0
+BACKTITLE="FlarbsTUI - Arch post-install script"
+TITLE="FlarbsTUI"
+MENU="Press action key and Enter"
+
+run_menu() {
+	need_dialog
+
+	while true; do
+		build_menu
+
+		CHOICE=$(dialog --clear \
+			--backtitle "$BACKTITLE" \
+			--title "$TITLE" \
+			--menu "$MENU" \
+			$HEIGHT $WIDTH $CHOICE_HEIGHT \
+			"${OPTIONS[@]}" \
+			2>&1 >/dev/tty)
+
+		clear
+
+		# Handle cancellation (ESC)
+		[[ $? -ne 0 ]] && exit 0
+
+		# Special options
+		case "$CHOICE" in
+			refresh) build_menu ;;
+			quit)    exit 0 ;;
+		esac
+
+		if [[ $CHOICE != "refresh" ]]; then
+			# Run chosen action function
+			func_var="ITEM_${CHOICE}[3]"
+			func="${!func_var}"
+			if type "$func" >/dev/null 2>&1; then
+				echo "Running: $func"
+				$func
+			else
+				echo "ERROR: Function '$func' not found."
+			fi
+			echo
+			read -r -p "Press Enter to return to the menu..." _
+		fi
+
+	done
+}
+
+run_menu

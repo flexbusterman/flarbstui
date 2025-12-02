@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+LOGFILE="install_failures.log"
+
+# Clear previous log file (optional)
+> "$LOGFILE"
+
+# Update once
+yay -Syu --noconfirm
+
+# Install each package from the JSON
+for pkg in $(jq -r --arg group "$1" '.packages[$group][].name' packages.json); do
+    echo "=== Installing $pkg ==="
+
+    if yay -S --needed --noconfirm "$pkg"; then
+        echo "[OK] $pkg installed successfully."
+    else
+        echo "[FAIL] $pkg failed to install."
+        echo "$(date '+%Y-%m-%d %H:%M:%S')  FAILED: $pkg" >> "$LOGFILE"
+    fi
+done
+
+echo "Done."
+echo "Failures (if any) are logged in: $LOGFILE"
