@@ -2,6 +2,21 @@
   "packages": {
     "main": [
       {
+        "name": "7zip",
+        "priority": "high",
+        "desc": "File archiver for extremely high compression"
+      },
+      {
+        "name": "xss-lock",
+        "priority": "high",
+        "desc": "Use external locker as X screen saver"
+      },
+      {
+        "name": "vdirsyncer",
+        "priority": "high",
+        "desc": "Synchronize CalDAV and CardDAV"
+      },
+      {
         "name": "mesa",
         "priority": "high",
         "desc": "Open-source OpenGL drivers"
