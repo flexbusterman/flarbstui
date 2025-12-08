@@ -2,6 +2,11 @@
   "packages": {
     "main": [
       {
+        "name": "wireless_tools",
+        "priority": "high",
+        "desc": "Tools allowing to manipulate the Wireless Extensions"
+      },
+      {
         "name": "7zip",
         "priority": "high",
         "desc": "File archiver for extremely high compression"

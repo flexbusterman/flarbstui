@@ -204,6 +204,13 @@ ITEM_j=(
 	"post_install_system_setup"
 )
 
+ITEM_k=(
+	"Lockscreen"
+	"Install xsecurelock and xscreensaver, including security settings"
+	"ls /etc/X11/xorg.conf.d/10-disablevt.conf"
+	"lockscreen_and_screensaver"
+)
+
 # ---------------------------------------------------------
 # Functions (actions)
 # ---------------------------------------------------------
@@ -759,6 +766,16 @@ post_install_system_setup() {
 	notify "Post-install system setup done"
 }
 
+lockscreen_and_screensaver() {
+	sudo mkdir -p /etc/X11/xorg.conf.d/
+	sudo tee /etc/X11/xorg.conf.d/10-disablevt.conf <<- EOF
+	Section "ServerFlags"
+		Option "DontVTSwitch" "True"
+		Option "DontZap" "True"
+		Option "AllowClosedownGrabs" "False"
+	EndSection
+	EOF
+}
 # ---------------------------------------------------------
 # Build the dialog menu dynamically
 # Includes:
@@ -770,7 +787,7 @@ build_menu() {
 	OPTIONS=()
 
 	# Preserve specific order 1..9, a..j
-	local ORDERED_KEYS=(1 2 3 4 5 6 7 8 9 a b c d e f g h i j)
+	local ORDERED_KEYS=(1 2 3 4 5 6 7 8 9 a b c d e f g h i j k)
 
 	for i in "${ORDERED_KEYS[@]}"; do
 		if ! declare -p "ITEM_${i}" >/dev/null 2>&1; then
