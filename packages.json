@@ -2,6 +2,11 @@
   "packages": {
     "main": [
       {
+        "name": "the_silver_searcher",
+        "priority": "high",
+        "desc": "Like grep or ack, but faster."
+      },
+      {
         "name": "wireless_tools",
         "priority": "high",
         "desc": "Tools allowing to manipulate the Wireless Extensions"
@@ -499,6 +504,16 @@
     ],
 
     "extra": [
+      {
+        "name": "font-manager",
+        "priority": "medium",
+        "desc": "A simple font management application for GTK+ Desktop Environments"
+      },
+      {
+        "name": "2048.c",
+        "priority": "high",
+        "desc": "A terminal 2048 written in c"
+      },
       {
         "name": "obsidian",
         "priority": "medium",
