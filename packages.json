@@ -505,6 +505,11 @@
 
     "extra": [
       {
+        "name": "rdfind",
+        "priority": "medium",
+        "desc": "Redundant data find - a program that finds duplicate files"
+      },
+      {
         "name": "font-manager",
         "priority": "medium",
         "desc": "A simple font management application for GTK+ Desktop Environments"
@@ -681,6 +686,16 @@
       { "name": "zig", "priority": "low", "desc": "Programming language" }
     ],
     "audio": [
+      {
+        "name": "helm-synth",
+        "priority": "medium",
+        "desc": "Free polyphonic synth with lots of modulation"
+      },
+      {
+        "name": "ardour",
+        "priority": "medium",
+        "desc": "Professional-grade digital audio workstation"
+      },
       {
         "name": "audio-convert",
         "priority": "low",
