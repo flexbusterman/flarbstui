@@ -2,6 +2,11 @@
   "packages": {
     "main": [
       {
+        "name": "xorg-xev",
+        "priority": "high",
+        "desc": "Print contents of X events"
+      },
+      {
         "name": "the_silver_searcher",
         "priority": "high",
         "desc": "Like grep or ack, but faster."
