@@ -7,7 +7,8 @@ const packages_file = "packages.json";
 
 pub fn build(b: *std.Build) !void {
     // Check minimum Zig version
-    const min_zig = std.SemanticVersion.parse(min_zig_string) catch unreachable;
+    const min_zig = std.SemanticVersion.parse(min_zig_string) catch 
+        @panic("Invalid minimum Zig version string");
     const current_zig = @import("builtin").zig_version;
     
     if (current_zig.order(min_zig) == .lt) {
