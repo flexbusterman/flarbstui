@@ -1,6 +1,9 @@
 const std = @import("std");
 
 const min_zig_string = "0.11.0";
+const main_script = "flarbstuibash";
+const install_script = "installpackages";
+const packages_file = "packages.json";
 
 pub fn build(b: *std.Build) !void {
     // Check minimum Zig version
@@ -16,22 +19,22 @@ pub fn build(b: *std.Build) !void {
     // The actual execution is handled by the bash scripts
     const install_step = b.getInstallStep();
     install_step.dependOn(&b.addInstallFile(
-        .{ .path = "flarbstuibash" },
+        .{ .path = main_script },
         "bin/flarbstui"
     ).step);
     
     install_step.dependOn(&b.addInstallFile(
-        .{ .path = "installpackages" },
-        "bin/installpackages"
+        .{ .path = install_script },
+        "bin/" ++ install_script
     ).step);
     
     install_step.dependOn(&b.addInstallFile(
-        .{ .path = "packages.json" },
-        "share/flarbstui/packages.json"
+        .{ .path = packages_file },
+        "share/flarbstui/" ++ packages_file
     ).step);
 
     // Create a run step for the TUI (for convenience)
-    const run_cmd = b.addSystemCommand(&[_][]const u8{"bash", "flarbstuibash"});
+    const run_cmd = b.addSystemCommand(&[_][]const u8{"bash", main_script});
     run_cmd.step.dependOn(b.getInstallStep());
 
     const run_step = b.step("run", "Run the flarbstui TUI");
