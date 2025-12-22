@@ -12,12 +12,8 @@ pub fn build(b: *std.Build) !void {
         return error.ZigVersionTooOld;
     }
 
-    // Standard target and optimize options
-    const target = b.standardTargetOptions(.{});
-    const optimize = b.standardOptimizeOption(.{});
-
-    // This is a bash script project, so we just create a no-op install step
-    // The actual installation is handled by the bash scripts
+    // This is a bash script project, so we just create install steps
+    // The actual execution is handled by the bash scripts
     const install_step = b.getInstallStep();
     install_step.dependOn(&b.addInstallFile(
         .{ .path = "flarbstuibash" },
@@ -40,7 +36,4 @@ pub fn build(b: *std.Build) !void {
 
     const run_step = b.step("run", "Run the flarbstui TUI");
     run_step.dependOn(&run_cmd.step);
-
-    _ = target;
-    _ = optimize;
 }
