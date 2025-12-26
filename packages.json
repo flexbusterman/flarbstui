@@ -2,6 +2,11 @@
   "packages": {
     "main": [
       {
+        "name": "socat",
+        "priority": "high",
+        "desc": "Multipurpose relay"
+      },
+      {
         "name": "xorg-xev",
         "priority": "high",
         "desc": "Print contents of X events"
@@ -509,6 +514,21 @@
     ],
 
     "extra": [
+      {
+        "name": "vlc",
+        "priority": "low",
+        "desc": "Free and open source cross-platform multimedia player and framework"
+      },
+      {
+        "name": "vlc-plugins-all",
+        "priority": "low",
+        "desc": "Free and open source cross-platform multimedia player and framework - all plugins"
+      },
+      {
+        "name": "auto-editor-bin",
+        "priority": "medium",
+        "desc": "A command line application for automatically editing video and audio"
+      },
       {
         "name": "rdfind",
         "priority": "medium",
