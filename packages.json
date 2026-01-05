@@ -1,517 +1,527 @@
 {
-  "packages": {
-    "main": [
-      {
-        "name": "socat",
-        "priority": "high",
-        "desc": "Multipurpose relay"
-      },
-      {
-        "name": "xorg-xev",
-        "priority": "high",
-        "desc": "Print contents of X events"
-      },
-      {
-        "name": "the_silver_searcher",
-        "priority": "high",
-        "desc": "Like grep or ack, but faster."
-      },
-      {
-        "name": "wireless_tools",
-        "priority": "high",
-        "desc": "Tools allowing to manipulate the Wireless Extensions"
-      },
-      {
-        "name": "7zip",
-        "priority": "high",
-        "desc": "File archiver for extremely high compression"
-      },
-      {
-        "name": "xss-lock",
-        "priority": "high",
-        "desc": "Use external locker as X screen saver"
-      },
-      {
-        "name": "vdirsyncer",
-        "priority": "high",
-        "desc": "Synchronize CalDAV and CardDAV"
-      },
-      {
-        "name": "mesa",
-        "priority": "high",
-        "desc": "Open-source OpenGL drivers"
-      },
-      {
-        "name": "lib32-mesa",
-        "priority": "high",
-        "desc": "Open-source OpenGL drivers - 32-bit"
-      },
-      {
-        "name": "vulkan-intel",
-        "priority": "high",
-        "desc": "Open-source Vulkan driver for Intel GPUs"
-      },
-      {
-        "name": "lib32-vulkan-intel",
-        "priority": "high",
-        "desc": "Open-source Vulkan driver for Intel GPUs - 32-bit"
-      },
-      {
-        "name": "vulkan-icd-loader",
-        "priority": "high",
-        "desc": "Vulkan Installable Client Driver (ICD) Loader"
-      },
-      {
-        "name": "lib32-vulkan-icd-loader",
-        "priority": "high",
-        "desc": "Vulkan Installable Client Driver (ICD) Loader (32-bit)"
-      },
-      {
-        "name": "vulkan-tools",
-        "priority": "high",
-        "desc": "Vulkan tools and utilities"
-      },
-      {
-        "name": "debtap",
-        "priority": "high",
-        "desc": "Converts .deb packages to Arch Linux packages"
-      },
-      {
-        "name": "papirus-icon-theme",
-        "priority": "high",
-        "desc": "Icons needed for hardcode-tray"
-      },
-      {
-        "name": "pass",
-        "priority": "high",
-        "desc": "Password store"
-      },
-      {
-        "name": "xclip",
-        "priority": "high",
-        "desc": "Clipboard program"
-      },
-      {
-        "name": "xdotool",
-        "priority": "high",
-        "desc": "Command-line X11 automation tool (git version)"
-      },
-      {
-        "name": "dnsmasq",
-        "priority": "high",
-        "desc": "DNS forwarder and DHCP server (dependency for qmenu)"
-      },
-      {
-        "name": "xscreensaver",
-        "priority": "high",
-        "desc": "X11 screen saver"
-      },
-      {
-        "name": "xsecurelock",
-        "priority": "high",
-        "desc": "X11 screen lock utility designed with the primary goal of security"
-      },
-      {
-        "name": "xorg-xkill",
-        "priority": "high",
-        "desc": "Click on program to force-quit"
-      },
-      {
-        "name": "xsel",
-        "priority": "high",
-        "desc": "clipboard program"
-      },
-      {
-        "name": "abook",
-        "priority": "high",
-        "desc": "Text-based address book"
-      },
-      {
-        "name": "acpi",
-        "priority": "high",
-        "desc": "ACPI power management info"
-      },
-      { "name": "acpid", "priority": "high", "desc": "ACPI event daemon" },
-      { "name": "aerc", "priority": "medium", "desc": "Terminal email client" },
-      {
-        "name": "alsa-firmware",
-        "priority": "high",
-        "desc": "Audio firmware for ALSA"
-      },
-      { "name": "alsa-utils", "priority": "high", "desc": "ALSA audio tools" },
-      { "name": "at", "priority": "high", "desc": "Delayed job scheduler" },
-      {
-        "name": "bat",
-        "priority": "high",
-        "desc": "Cat clone with syntax highlighting"
-      },
-      { "name": "bc", "priority": "high", "desc": "Command-line calculator" },
-      {
-        "name": "blueberry",
-        "priority": "medium",
-        "desc": "Bluetooth settings GUI"
-      },
-      { "name": "bluez", "priority": "high", "desc": "Linux Bluetooth stack" },
-      {
-        "name": "bluez-utils",
-        "priority": "medium",
-        "desc": "Bluetooth CLI utilities"
-      },
-      {
-        "name": "brightnessctl",
-        "priority": "high",
-        "desc": "Backlight brightness control"
-      },
-      { "name": "btop", "priority": "high", "desc": "Resource monitor" },
-      {
-        "name": "certbot-nginx",
-        "priority": "high",
-        "desc": "Auto HTTPS for NGINX"
-      },
-      {
-        "name": "cmatrix",
-        "priority": "high",
-        "desc": "Matrix-style terminal animation"
-      },
-      {
-        "name": "composer",
-        "priority": "medium",
-        "desc": "PHP dependency manager"
-      },
-      { "name": "cp437", "priority": "low", "desc": "CP437 console fonts" },
-      {
-        "name": "cpupower",
-        "priority": "high",
-        "desc": "CPU frequency management tools"
-      },
-      { "name": "cronie", "priority": "high", "desc": "Cron daemon" },
-      { "name": "cups", "priority": "high", "desc": "Printing system" },
-      { "name": "cwebp", "priority": "low", "desc": "WebP image converter" },
-      { "name": "dialog", "priority": "low", "desc": "Curses dialog boxes" },
-      { "name": "dotool", "priority": "low", "desc": "Automation toolkit" },
-      {
-        "name": "dragon-drop",
-        "priority": "high",
-        "desc": "Drag-and-drop helper"
-      },
-      { "name": "dunst", "priority": "high", "desc": "Notification daemon" },
-      { "name": "dust", "priority": "high", "desc": "Disk usage viewer" },
-      {
-        "name": "exfatprogs",
-        "priority": "high",
-        "desc": "exFAT filesystem tools"
-      },
-      {
-        "name": "exiftool",
-        "priority": "high",
-        "desc": "Image metadata editor"
-      },
-      { "name": "eza", "priority": "high", "desc": "Modern ls alternative" },
-      {
-        "name": "fd",
-        "priority": "high",
-        "desc": "Fast search alternative to find"
-      },
-      { "name": "feh", "priority": "high", "desc": "Lightweight image viewer" },
-      { "name": "ffmpeg", "priority": "high", "desc": "Media toolkit" },
-      {
-        "name": "ffmpegthumbnailer",
-        "priority": "medium",
-        "desc": "Video thumbnail generator"
-      },
-      { "name": "figlet", "priority": "medium", "desc": "Text-to-ASCII art" },
-      {
-        "name": "figlet-fonts",
-        "priority": "medium",
-        "desc": "Additional asciiart fonts for figlet"
-      },
-      { "name": "fwupd", "priority": "high", "desc": "Firmware updater" },
-      { "name": "fzf", "priority": "high", "desc": "Fuzzy finder" },
-      {
-        "name": "github-cli",
-        "priority": "medium",
-        "desc": "GitHub command-line tool"
-      },
-      { "name": "gnupg", "priority": "high", "desc": "Encryption toolkit" },
-      {
-        "name": "gtrash-bin",
-        "priority": "high",
-        "desc": "Binary build of gtrash"
-      },
-      {
-        "name": "hardcode-tray-git",
-        "priority": "low",
-        "desc": "Fix tray icons"
-      },
-      {
-        "name": "highlight",
-        "priority": "high",
-        "desc": "Code syntax highlighter"
-      },
-      { "name": "htim", "priority": "high", "desc": "Time interval manager" },
-      {
-        "name": "ibm-fonts",
-        "priority": "low",
-        "desc": "IBM typography fonts"
-      },
-      {
-        "name": "imagemagick",
-        "priority": "medium",
-        "desc": "Image processing"
-      },
-      {
-        "name": "inotify-tools",
-        "priority": "high",
-        "desc": "Filesystem watch utilities"
-      },
-      { "name": "iotop", "priority": "low", "desc": "Disk IO monitor" },
-      { "name": "jq", "priority": "high", "desc": "JSON processor" },
-      { "name": "khard", "priority": "low", "desc": "CardDAV CLI contacts" },
-      {
-        "name": "kitty",
-        "priority": "high",
-        "desc": "GPU-accelerated terminal"
-      },
-      { "name": "less", "priority": "high", "desc": "Text pager" },
-      { "name": "libertine", "priority": "low", "desc": "Libertine font set" },
-      { "name": "libwebp", "priority": "medium", "desc": "WebP library" },
-      {
-        "name": "liquidprompt",
-        "priority": "high",
-        "desc": "Dynamic shell prompt"
-      },
-      { "name": "lm_sensors", "priority": "high", "desc": "Hardware sensors" },
-      { "name": "maim", "priority": "medium", "desc": "Screenshot tool" },
-      { "name": "man", "priority": "high", "desc": "Manual pages" },
-      { "name": "mariadb", "priority": "medium", "desc": "Database server" },
-      {
-        "name": "mkcert",
-        "priority": "medium",
-        "desc": "Local HTTPS certificate tool"
-      },
-      { "name": "ncdu", "priority": "low", "desc": "Disk usage explorer" },
-      { "name": "neofetch", "priority": "low", "desc": "System info tool" },
-      { "name": "neovim", "priority": "high", "desc": "Vim-based editor" },
-      {
-        "name": "nethogs",
-        "priority": "medium",
-        "desc": "Network usage per process"
-      },
-      { "name": "nginx", "priority": "high", "desc": "Web server" },
-      { "name": "nodejs", "priority": "medium", "desc": "JavaScript runtime" },
-      { "name": "notmuch", "priority": "low", "desc": "Email indexer" },
-      {
-        "name": "noto-fonts",
-        "priority": "low",
-        "desc": "Unicode font family"
-      },
-      {
-        "name": "noto-fonts-emoji",
-        "priority": "low",
-        "desc": "Emoji support"
-      },
-      { "name": "npm", "priority": "medium", "desc": "Node package manager" },
-      {
-        "name": "npm-check-updates",
-        "priority": "low",
-        "desc": "Check package updates"
-      },
-      {
-        "name": "ntfs-3g",
-        "priority": "high",
-        "desc": "NTFS filesystem driver"
-      },
-      { "name": "nvtop", "priority": "low", "desc": "GPU process monitor" },
-      {
-        "name": "openssh-hpn",
-        "priority": "high",
-        "desc": "High-performance SSH"
-      },
-      { "name": "os-prober", "priority": "high", "desc": "Detects other OSes" },
-      {
-        "name": "pacman-contrib",
-        "priority": "high",
-        "desc": "Extra pacman tools"
-      },
-      {
-        "name": "pam-gnupg",
-        "priority": "medium",
-        "desc": "Unlock GPG with PAM"
-      },
-      { "name": "pamixer", "priority": "low", "desc": "PulseAudio mixer" },
-      {
-        "name": "pandoc",
-        "priority": "low",
-        "desc": "Universal document converter"
-      },
-      {
-        "name": "perl-image-exiftool",
-        "priority": "low",
-        "desc": "Metadata tool"
-      },
-      { "name": "picom", "priority": "high", "desc": "X11 compositor" },
-      { "name": "playerctl", "priority": "low", "desc": "Media control CLI" },
-      {
-        "name": "pm-utils",
-        "priority": "medium",
-        "desc": "Suspend/hibernate utilities"
-      },
-      { "name": "prettier", "priority": "low", "desc": "Code formatter" },
-      {
-        "name": "pulsemixer",
-        "priority": "low",
-        "desc": "PulseAudio mixer CLI"
-      },
-      {
-        "name": "pwvucontrol",
-        "priority": "low",
-        "desc": "PipeWire volume control"
-      },
-      {
-        "name": "python-adblock",
-        "priority": "low",
-        "desc": "Adblock library"
-      },
-      {
-        "name": "python-pip",
-        "priority": "medium",
-        "desc": "Python package manager"
-      },
-      {
-        "name": "python-pynvim",
-        "priority": "low",
-        "desc": "Python client for Neovim"
-      },
-      { "name": "qt5ct", "priority": "low", "desc": "Qt theme config" },
-      { "name": "qutebrowser", "priority": "low", "desc": "Vim-based browser" },
-      {
-        "name": "realtime-privileges",
-        "priority": "high",
-        "desc": "Audio realtime perms"
-      },
-      {
-        "name": "reflector",
-        "priority": "high",
-        "desc": "Mirrorlist optimizer"
-      },
-      { "name": "ripgrep", "priority": "low", "desc": "Fast text search" },
-      { "name": "rsync", "priority": "high", "desc": "File syncing" },
-      {
-        "name": "rtcqs",
-        "priority": "medium",
-        "desc": "Audio realtime checker"
-      },
-      { "name": "sc-im", "priority": "low", "desc": "Terminal spreadsheet" },
-      { "name": "sdbus-cpp", "priority": "low", "desc": "DBus C++ bindings" },
-      { "name": "sed", "priority": "high", "desc": "Text stream editor" },
-      { "name": "sox", "priority": "low", "desc": "Audio processing tool" },
-      {
-        "name": "srandrd",
-        "priority": "medium",
-        "desc": "Display hotplug daemon"
-      },
-      {
-        "name": "stochas",
-        "priority": "low",
-        "desc": "Probabilistic sequencer"
-      },
-      { "name": "swayidle", "priority": "medium", "desc": "Idle manager" },
-      { "name": "sws", "priority": "low", "desc": "REAPER SWS extensions" },
-      { "name": "sysstat", "priority": "high", "desc": "Performance tools" },
-      { "name": "task", "priority": "medium", "desc": "Taskwarrior CLI" },
-      {
-        "name": "taskopen",
-        "priority": "medium",
-        "desc": "Taskwarrior file handler"
-      },
-      {
-        "name": "taskwarrior-tui",
-        "priority": "medium",
-        "desc": "Taskwarrior TUI"
-      },
-      {
-        "name": "termdown",
-        "priority": "low",
-        "desc": "Terminal countdown timer"
-      },
-      { "name": "thermald", "priority": "high", "desc": "Thermal daemon" },
-      { "name": "timew", "priority": "low", "desc": "Time tracking" },
-      { "name": "tldr", "priority": "high", "desc": "Simplified man pages" },
-      {
-        "name": "transmission-cli",
-        "priority": "low",
-        "desc": "CLI torrent client"
-      },
-      {
-        "name": "tree-sitter-cli",
-        "priority": "low",
-        "desc": "Parser generator CLI"
-      },
-      {
-        "name": "tremc-git",
-        "priority": "low",
-        "desc": "Ncurses Transmission client"
-      },
-      { "name": "udiskie", "priority": "medium", "desc": "Auto-mount daemon" },
-      {
-        "name": "ueberzug",
-        "priority": "low",
-        "desc": "Terminal image viewer"
-      },
-      { "name": "ufw", "priority": "high", "desc": "Uncomplicated Firewall" },
-      { "name": "unarchiver", "priority": "low", "desc": "Extractor utility" },
-      { "name": "unclutter", "priority": "low", "desc": "Hide mouse cursor" },
-      { "name": "unrar", "priority": "low", "desc": "RAR extractor" },
-      { "name": "unzip", "priority": "high", "desc": "ZIP extractor" },
-      { "name": "update-grub", "priority": "high", "desc": "GRUB updater" },
-      {
-        "name": "urlscan",
-        "priority": "low",
-        "desc": "Extract URLs from text"
-      },
-      {
-        "name": "usb_modeswitch",
-        "priority": "high",
-        "desc": "USB mode switcher"
-      },
-      { "name": "w3m", "priority": "low", "desc": "Text web browser" },
-      {
-        "name": "wd719x-firmware",
-        "priority": "low",
-        "desc": "Legacy SCSI firmware"
-      },
-      { "name": "wget", "priority": "high", "desc": "Downloader" },
-      {
-        "name": "xorg-xinput",
-        "priority": "high",
-        "desc": "Small commandline tool to configure devices"
-      },
-      { "name": "yazi", "priority": "high", "desc": "Terminal file manager" },
-      { "name": "yt-dlp", "priority": "low", "desc": "Video downloader" },
-      { "name": "zathura", "priority": "low", "desc": "PDF viewer" },
-      { "name": "zathura-pdf-mupdf", "priority": "low", "desc": "PDF backend" },
-      { "name": "zsh", "priority": "high", "desc": "Shell" },
-      {
-        "name": "zsh-autocomplete",
-        "priority": "high",
-        "desc": "Autocomplete for Zsh"
-      },
-      {
-        "name": "zsh-autosuggestions",
-        "priority": "high",
-        "desc": "Autosuggest in Zsh"
-      },
-      {
-        "name": "zsh-syntax-highlightning",
-        "priority": "high",
-        "desc": "Syntax highlighting"
-      },
-      {
-        "name": "zsh-system-clipboard-git",
-        "priority": "high",
-        "desc": "Clipboard integration"
-      }
-    ],
+	"packages": {
+		"main": [
+			{
+				"name": "socat",
+				"priority": "high",
+				"desc": " Multipurpose relay"
+			},
+			{
+				"name": "mpvc-git",
+				"priority": "high",
+				"desc": "An mpc-like CLI tool for mpv"
+			}
+			{
+				"name": "xorg-xev",
+				"priority": "high",
+				"desc": "Print contents of X events"
+			},
+			{
+				"name": "the_silver_searcher",
+				"priority": "high",
+				"desc": "Like grep or ack, but faster."
+			},
+			{
+				"name": "wireless_tools",
+				"priority": "high",
+				"desc": "Tools allowing to manipulate the Wireless Extensions"
+			},
+			{
+				"name": "7zip",
+				"priority": "high",
+				"desc": "File archiver for extremely high compression"
+			},
+			{
+				"name": "xss-lock",
+				"priority": "high",
+				"desc": "Use external locker as X screen saver"
+			},
+			{
+				"name": "vdirsyncer",
+				"priority": "high",
+				"desc": "Synchronize CalDAV and CardDAV"
+			},
+			{
+				"name": "mesa",
+				"priority": "high",
+				"desc": "Open-source OpenGL drivers"
+			},
+			{
+				"name": "lib32-mesa",
+				"priority": "high",
+				"desc": "Open-source OpenGL drivers - 32-bit"
+			},
+			{
+				"name": "vulkan-intel",
+				"priority": "high",
+				"desc": "Open-source Vulkan driver for Intel GPUs"
+			},
+			{
+				"name": "lib32-vulkan-intel",
+				"priority": "high",
+				"desc": "Open-source Vulkan driver for Intel GPUs - 32-bit"
+			},
+			{
+				"name": "vulkan-icd-loader",
+				"priority": "high",
+				"desc": "Vulkan Installable Client Driver (ICD) Loader"
+			},
+			{
+				"name": "lib32-vulkan-icd-loader",
+				"priority": "high",
+				"desc": "Vulkan Installable Client Driver (ICD) Loader (32-bit)"
+			},
+			{
+				"name": "vulkan-tools",
+				"priority": "high",
+				"desc": "Vulkan tools and utilities"
+			},
+			{
+				"name": "debtap",
+				"priority": "high",
+				"desc": "Converts .deb packages to Arch Linux packages"
+			},
+			{
+				"name": "papirus-icon-theme",
+				"priority": "high",
+				"desc": "Icons needed for hardcode-tray"
+			},
+			{
+				"name": "pass",
+				"priority": "high",
+				"desc": "Password store"
+			},
+			{
+				"name": "xclip",
+				"priority": "high",
+				"desc": "Clipboard program"
+			},
+			{
+				"name": "xdotool",
+				"priority": "high",
+				"desc": "Command-line X11 automation tool (git version)"
+			},
+			{
+				"name": "dnsmasq",
+				"priority": "high",
+				"desc": "DNS forwarder and DHCP server (dependency for qmenu)"
+			},
+			{
+				"name": "xscreensaver",
+				"priority": "high",
+				"desc": "X11 screen saver"
+			},
+			{
+				"name": "xsecurelock",
+				"priority": "high",
+				"desc": "X11 screen lock utility designed with the primary goal of security"
+			},
+			{
+				"name": "xorg-xkill",
+				"priority": "high",
+				"desc": "Click on program to force-quit"
+			},
+			{
+				"name": "xsel",
+				"priority": "high",
+				"desc": "clipboard program"
+			},
+			{
+				"name": "abook",
+				"priority": "high",
+				"desc": "Text-based address book"
+			},
+			{
+				"name": "acpi",
+				"priority": "high",
+				"desc": "ACPI power management info"
+			},
+			{ "name": "acpid", "priority": "high", "desc": "ACPI event daemon" },
+			{ "name": "aerc", "priority": "medium", "desc": "Terminal email client" },
+			{
+				"name": "alsa-firmware",
+				"priority": "high",
+				"desc": "Audio firmware for ALSA"
+			},
+			{ "name": "alsa-utils", "priority": "high", "desc": "ALSA audio tools" },
+			{ "name": "at", "priority": "high", "desc": "Delayed job scheduler" },
+			{
+				"name": "bat",
+				"priority": "high",
+				"desc": "Cat clone with syntax highlighting"
+			},
+			{ "name": "bc", "priority": "high", "desc": "Command-line calculator" },
+			{
+				"name": "blueberry",
+				"priority": "medium",
+				"desc": "Bluetooth settings GUI"
+			},
+			{ "name": "bluez", "priority": "high", "desc": "Linux Bluetooth stack" },
+			{
+				"name": "bluez-utils",
+				"priority": "medium",
+				"desc": "Bluetooth CLI utilities"
+			},
+			{
+				"name": "brightnessctl",
+				"priority": "high",
+				"desc": "Backlight brightness control"
+			},
+			{ "name": "btop", "priority": "high", "desc": "Resource monitor" },
+			{
+				"name": "certbot-nginx",
+				"priority": "high",
+				"desc": "Auto HTTPS for NGINX"
+			},
+			{
+				"name": "cmatrix",
+				"priority": "high",
+				"desc": "Matrix-style terminal animation"
+			},
+			{
+				"name": "composer",
+				"priority": "medium",
+				"desc": "PHP dependency manager"
+			},
+			{ "name": "cp437", "priority": "low", "desc": "CP437 console fonts" },
+			{
+				"name": "cpupower",
+				"priority": "high",
+				"desc": "CPU frequency management tools"
+			},
+			{ "name": "cronie", "priority": "high", "desc": "Cron daemon" },
+			{ "name": "cups", "priority": "high", "desc": "Printing system" },
+			{ "name": "cwebp", "priority": "low", "desc": "WebP image converter" },
+			{ "name": "dialog", "priority": "low", "desc": "Curses dialog boxes" },
+			{ "name": "dotool", "priority": "low", "desc": "Automation toolkit" },
+			{
+				"name": "dragon-drop",
+				"priority": "high",
+				"desc": "Drag-and-drop helper"
+			},
+			{ "name": "dunst", "priority": "high", "desc": "Notification daemon" },
+			{ "name": "dust", "priority": "high", "desc": "Disk usage viewer" },
+			{
+				"name": "exfatprogs",
+				"priority": "high",
+				"desc": "exFAT filesystem tools"
+			},
+			{
+				"name": "exiftool",
+				"priority": "high",
+				"desc": "Image metadata editor"
+			},
+			{ "name": "eza", "priority": "high", "desc": "Modern ls alternative" },
+			{
+				"name": "fd",
+				"priority": "high",
+				"desc": "Fast search alternative to find"
+			},
+			{ "name": "feh", "priority": "high", "desc": "Lightweight image viewer" },
+			{ "name": "ffmpeg", "priority": "high", "desc": "Media toolkit" },
+			{
+				"name": "ffmpegthumbnailer",
+				"priority": "medium",
+				"desc": "Video thumbnail generator"
+			},
+			{ "name": "figlet", "priority": "medium", "desc": "Text-to-ASCII art" },
+			{
+				"name": "figlet-fonts",
+				"priority": "medium",
+				"desc": "Additional asciiart fonts for figlet"
+			},
+			{ "name": "fwupd", "priority": "high", "desc": "Firmware updater" },
+			{ "name": "fzf", "priority": "high", "desc": "Fuzzy finder" },
+			{
+				"name": "github-cli",
+				"priority": "medium",
+				"desc": "GitHub command-line tool"
+			},
+			{ "name": "gnupg", "priority": "high", "desc": "Encryption toolkit" },
+			{
+				"name": "gtrash-bin",
+				"priority": "high",
+				"desc": "Binary build of gtrash"
+			},
+			{
+				"name": "hardcode-tray-git",
+				"priority": "low",
+				"desc": "Fix tray icons"
+			},
+			{
+				"name": "highlight",
+				"priority": "high",
+				"desc": "Code syntax highlighter"
+			},
+			{ "name": "htim", "priority": "high", "desc": "Time interval manager" },
+			{
+				"name": "ibm-fonts",
+				"priority": "low",
+				"desc": "IBM typography fonts"
+			},
+			{
+				"name": "imagemagick",
+				"priority": "medium",
+				"desc": "Image processing"
+			},
+			{
+				"name": "inotify-tools",
+				"priority": "high",
+				"desc": "Filesystem watch utilities"
+			},
+			{ "name": "iotop", "priority": "low", "desc": "Disk IO monitor" },
+			{ "name": "jq", "priority": "high", "desc": "JSON processor" },
+			{ "name": "khard", "priority": "low", "desc": "CardDAV CLI contacts" },
+			{
+				"name": "kitty",
+				"priority": "high",
+				"desc": "GPU-accelerated terminal"
+			},
+			{ "name": "less", "priority": "high", "desc": "Text pager" },
+			{ "name": "libertine", "priority": "low", "desc": "Libertine font set" },
+			{ "name": "libwebp", "priority": "medium", "desc": "WebP library" },
+			{
+				"name": "liquidprompt",
+				"priority": "high",
+				"desc": "Dynamic shell prompt"
+			},
+			{ "name": "lm_sensors", "priority": "high", "desc": "Hardware sensors" },
+			{ "name": "maim", "priority": "medium", "desc": "Screenshot tool" },
+			{ "name": "man", "priority": "high", "desc": "Manual pages" },
+			{ "name": "mariadb", "priority": "medium", "desc": "Database server" },
+			{
+				"name": "mkcert",
+				"priority": "medium",
+				"desc": "Local HTTPS certificate tool"
+			},
+			{ "name": "ncdu", "priority": "low", "desc": "Disk usage explorer" },
+			{ "name": "neofetch", "priority": "low", "desc": "System info tool" },
+			{ "name": "neovim", "priority": "high", "desc": "Vim-based editor" },
+			{
+				"name": "nethogs",
+				"priority": "medium",
+				"desc": "Network usage per process"
+			},
+			{ "name": "nginx", "priority": "high", "desc": "Web server" },
+			{ "name": "nodejs", "priority": "medium", "desc": "JavaScript runtime" },
+			{ "name": "notmuch", "priority": "low", "desc": "Email indexer" },
+			{
+				"name": "noto-fonts",
+				"priority": "low",
+				"desc": "Unicode font family"
+			},
+			{
+				"name": "noto-fonts-emoji",
+				"priority": "low",
+				"desc": "Emoji support"
+			},
+			{ "name": "npm", "priority": "medium", "desc": "Node package manager" },
+			{
+				"name": "npm-check-updates",
+				"priority": "low",
+				"desc": "Check package updates"
+			},
+			{
+				"name": "ntfs-3g",
+				"priority": "high",
+				"desc": "NTFS filesystem driver"
+			},
+			{ "name": "nvtop", "priority": "low", "desc": "GPU process monitor" },
+			{
+				"name": "openssh-hpn",
+				"priority": "high",
+				"desc": "High-performance SSH"
+			},
+			{ "name": "os-prober", "priority": "high", "desc": "Detects other OSes" },
+			{
+				"name": "pacman-contrib",
+				"priority": "high",
+				"desc": "Extra pacman tools"
+			},
+			{
+				"name": "pam-gnupg",
+				"priority": "medium",
+				"desc": "Unlock GPG with PAM"
+			},
+			{ "name": "pamixer", "priority": "low", "desc": "PulseAudio mixer" },
+			{
+				"name": "pandoc",
+				"priority": "low",
+				"desc": "Universal document converter"
+			},
+			{
+				"name": "perl-image-exiftool",
+				"priority": "low",
+				"desc": "Metadata tool"
+			},
+			{ "name": "picom", "priority": "high", "desc": "X11 compositor" },
+			{ "name": "playerctl", "priority": "low", "desc": "Media control CLI" },
+			{
+				"name": "pm-utils",
+				"priority": "medium",
+				"desc": "Suspend/hibernate utilities"
+			},
+			{ "name": "prettier", "priority": "low", "desc": "Code formatter" },
+			{
+				"name": "pulsemixer",
+				"priority": "low",
+				"desc": "PulseAudio mixer CLI"
+			},
+			{
+				"name": "pwvucontrol",
+				"priority": "low",
+				"desc": "PipeWire volume control"
+			},
+			{
+				"name": "python-dotenv",
+				"priority": "low",
+				"desc": "Get and set values in your .env file in local and production servers"
+			},
+			{
+				"name": "python-adblock",
+				"priority": "low",
+				"desc": "Adblock library"
+			},
+			{
+				"name": "python-pip",
+				"priority": "medium",
+				"desc": "Python package manager"
+			},
+			{
+				"name": "python-pynvim",
+				"priority": "low",
+				"desc": "Python client for Neovim"
+			},
+			{ "name": "qt5ct", "priority": "low", "desc": "Qt theme config" },
+			{ "name": "qutebrowser", "priority": "low", "desc": "Vim-based browser" },
+			{
+				"name": "realtime-privileges",
+				"priority": "high",
+				"desc": "Audio realtime perms"
+			},
+			{
+				"name": "reflector",
+				"priority": "high",
+				"desc": "Mirrorlist optimizer"
+			},
+			{ "name": "ripgrep", "priority": "low", "desc": "Fast text search" },
+			{ "name": "rsync", "priority": "high", "desc": "File syncing" },
+			{
+				"name": "rtcqs",
+				"priority": "medium",
+				"desc": "Audio realtime checker"
+			},
+			{ "name": "sc-im", "priority": "low", "desc": "Terminal spreadsheet" },
+			{ "name": "sdbus-cpp", "priority": "low", "desc": "DBus C++ bindings" },
+			{ "name": "sed", "priority": "high", "desc": "Text stream editor" },
+			{ "name": "sox", "priority": "low", "desc": "Audio processing tool" },
+			{
+				"name": "srandrd",
+				"priority": "medium",
+				"desc": "Display hotplug daemon"
+			},
+			{
+				"name": "stochas",
+				"priority": "low",
+				"desc": "Probabilistic sequencer"
+			},
+			{ "name": "swayidle", "priority": "medium", "desc": "Idle manager" },
+			{ "name": "sws", "priority": "low", "desc": "REAPER SWS extensions" },
+			{ "name": "sysstat", "priority": "high", "desc": "Performance tools" },
+			{ "name": "task", "priority": "medium", "desc": "Taskwarrior CLI" },
+			{
+				"name": "taskopen",
+				"priority": "medium",
+				"desc": "Taskwarrior file handler"
+			},
+			{
+				"name": "taskwarrior-tui",
+				"priority": "medium",
+				"desc": "Taskwarrior TUI"
+			},
+			{
+				"name": "termdown",
+				"priority": "low",
+				"desc": "Terminal countdown timer"
+			},
+			{ "name": "thermald", "priority": "high", "desc": "Thermal daemon" },
+			{ "name": "timew", "priority": "low", "desc": "Time tracking" },
+			{ "name": "tldr", "priority": "high", "desc": "Simplified man pages" },
+			{
+				"name": "transmission-cli",
+				"priority": "low",
+				"desc": "CLI torrent client"
+			},
+			{
+				"name": "tree-sitter-cli",
+				"priority": "low",
+				"desc": "Parser generator CLI"
+			},
+			{
+				"name": "tremc-git",
+				"priority": "low",
+				"desc": "Ncurses Transmission client"
+			},
+			{ "name": "udiskie", "priority": "medium", "desc": "Auto-mount daemon" },
+			{
+				"name": "ueberzug",
+				"priority": "low",
+				"desc": "Terminal image viewer"
+			},
+			{ "name": "ufw", "priority": "high", "desc": "Uncomplicated Firewall" },
+			{ "name": "unarchiver", "priority": "low", "desc": "Extractor utility" },
+			{ "name": "unclutter", "priority": "low", "desc": "Hide mouse cursor" },
+			{ "name": "unrar", "priority": "low", "desc": "RAR extractor" },
+			{ "name": "unzip", "priority": "high", "desc": "ZIP extractor" },
+			{ "name": "update-grub", "priority": "high", "desc": "GRUB updater" },
+			{
+				"name": "urlscan",
+				"priority": "low",
+				"desc": "Extract URLs from text"
+			},
+			{
+				"name": "usb_modeswitch",
+				"priority": "high",
+				"desc": "USB mode switcher"
+			},
+			{ "name": "w3m", "priority": "low", "desc": "Text web browser" },
+			{
+				"name": "wd719x-firmware",
+				"priority": "low",
+				"desc": "Legacy SCSI firmware"
+			},
+			{ "name": "wget", "priority": "high", "desc": "Downloader" },
+			{
+				"name": "xorg-xinput",
+				"priority": "high",
+				"desc": "Small commandline tool to configure devices"
+			},
+			{ "name": "yazi", "priority": "high", "desc": "Terminal file manager" },
+			{ "name": "yt-dlp", "priority": "low", "desc": "Video downloader" },
+			{ "name": "zathura", "priority": "low", "desc": "PDF viewer" },
+			{ "name": "zathura-pdf-mupdf", "priority": "low", "desc": "PDF backend" },
+			{ "name": "zsh", "priority": "high", "desc": "Shell" },
+			{
+				"name": "zsh-autocomplete",
+				"priority": "high",
+				"desc": "Autocomplete for Zsh"
+			},
+			{
+				"name": "zsh-autosuggestions",
+				"priority": "high",
+				"desc": "Autosuggest in Zsh"
+			},
+			{
+				"name": "zsh-syntax-highlightning",
+				"priority": "high",
+				"desc": "Syntax highlighting"
+			},
+			{
+				"name": "zsh-system-clipboard-git",
+				"priority": "high",
+				"desc": "Clipboard integration"
+			}
+		],
 
     "extra": [
       {
