@@ -525,6 +525,11 @@
 
     "extra": [
       {
+        "name": "slides",
+        "priority": "medium",
+        "desc": "Terminal based presentation tool"
+      },
+      {
         "name": "vlc",
         "priority": "low",
         "desc": "Free and open source cross-platform multimedia player and framework"
@@ -535,7 +540,7 @@
         "desc": "Free and open source cross-platform multimedia player and framework - all plugins"
       },
       {
-        "name": "auto-editor-bin",
+        "name": "auto-editor",
         "priority": "medium",
         "desc": "A command line application for automatically editing video and audio"
       },

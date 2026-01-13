@@ -703,6 +703,12 @@ reaper_setup() {
 				ln -s "$HOME/DROPCOX Dropbox/Christian Augustin/REAPER/custom-reaper-keys-definitions" \
 					"$HOME/.config/REAPER/Scripts/reaper-keys/internal/definitions"
 			fi
+
+			# Changing font in file menu and action list
+			if [ ! -e "$HOME/.config/REAPER/libSwell-user.colortheme" ]; then
+				ln -s "$HOME/DROPCOX Dropbox/Christian Augustin/REAPER/libSwell-user.colortheme" \
+					"$HOME/.config/REAPER/libSwell-user.colortheme"
+			fi
 		fi
 	fi
 }
