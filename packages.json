@@ -244,7 +244,7 @@
 				"desc": "Binary build of gtrash"
 			},
 			{
-				"name": "hardcode-tray-git",
+				"name": "hardcode-tray",
 				"priority": "low",
 				"desc": "Fix tray icons"
 			},
