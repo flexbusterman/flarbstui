@@ -464,9 +464,9 @@
 			},
 			{ "name": "udiskie", "priority": "medium", "desc": "Auto-mount daemon" },
 			{
-				"name": "ueberzug",
-				"priority": "low",
-				"desc": "Terminal image viewer"
+				"name": "ueberzugpp",
+				"priority": "high",
+				"desc": "Command line utility which allows to display images in the terminal, written in C++"
 			},
 			{ "name": "ufw", "priority": "high", "desc": "Uncomplicated Firewall" },
 			{ "name": "unarchiver", "priority": "low", "desc": "Extractor utility" },
@@ -524,6 +524,11 @@
 		],
 
     "extra": [
+      {
+        "name": "open-webui",
+        "priority": "medium",
+        "desc": "Web UI and OpenAI API for various LLM runners, including Ollama"
+      },
       {
         "name": "slides",
         "priority": "medium",
