@@ -525,6 +525,11 @@
 
     "extra": [
       {
+        "name": "dbxcli",
+        "priority": "medium",
+        "desc": "A command line client for Dropbox built using the Go SDK"
+      },
+      {
         "name": "open-webui",
         "priority": "medium",
         "desc": "Web UI and OpenAI API for various LLM runners, including Ollama"
@@ -731,6 +736,11 @@
       { "name": "zig", "priority": "low", "desc": "Programming language" }
     ],
     "audio": [
+      {
+        "name": "fluida.lv2",
+        "priority": "medium",
+        "desc": "sf2 sampler"
+      },
       {
         "name": "helm-synth",
         "priority": "medium",
