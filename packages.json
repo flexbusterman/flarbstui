@@ -2,6 +2,21 @@
   "packages": {
     "main": [
       {
+        "name": "find-cursor",
+        "priority": "medium",
+        "desc": "Simple XLib program to highlight the cursor position in X11"
+      },
+      {
+        "name": "bluetui",
+        "priority": "medium",
+        "desc": "TUI for managing bluetooth devices"
+      },
+      {
+        "name": "findutils",
+        "priority": "high",
+        "desc": "GNU utilities to locate files"
+      },
+      {
         "name": "arch-install-scripts",
         "priority": "high",
         "desc": "Scripts to aid in installing Arch Linux"
@@ -156,11 +171,6 @@
         "desc": "Cat clone with syntax highlighting"
       },
       { "name": "bc", "priority": "high", "desc": "Command-line calculator" },
-      {
-        "name": "blueberry",
-        "priority": "medium",
-        "desc": "Bluetooth settings GUI"
-      },
       { "name": "bluez", "priority": "high", "desc": "Linux Bluetooth stack" },
       {
         "name": "bluez-utils",
@@ -540,16 +550,6 @@
         "desc": "Intelligent WHOIS client"
       },
       {
-        "name": "dbxcli",
-        "priority": "medium",
-        "desc": "A command line client for Dropbox built using the Go SDK"
-      },
-      {
-        "name": "open-webui",
-        "priority": "medium",
-        "desc": "Web UI and OpenAI API for various LLM runners, including Ollama"
-      },
-      {
         "name": "slides",
         "priority": "medium",
         "desc": "Terminal based presentation tool"
@@ -599,11 +599,6 @@
         "priority": "medium",
         "desc": "Docker is a utility to pack, ship and run any application as a lightweight container"
       },
-      {
-        "name": "adbfs-rootless-git",
-        "priority": "low",
-        "desc": "Mount Android devices via ADB"
-      },
       { "name": "blender", "priority": "low", "desc": "3D modeling software" },
       { "name": "brave-bin", "priority": "low", "desc": "Brave web browser" },
       {
@@ -642,11 +637,6 @@
         "desc": "Vector drawing program"
       },
       {
-        "name": "libappindicator-gtk3",
-        "priority": "low",
-        "desc": "AppIndicator support for use with new Dropbox"
-      },
-      {
         "name": "libreoffice-fresh",
         "priority": "low",
         "desc": "Office suite"
@@ -663,16 +653,10 @@
       },
       { "name": "mpv", "priority": "low", "desc": "Media player" },
       { "name": "mullvad-vpn-bin", "priority": "low", "desc": "VPN client" },
-      { "name": "nudoku", "priority": "low", "desc": "Terminal sudoku" },
       {
         "name": "proton-ge-custom-bin",
         "priority": "low",
         "desc": "Custom Proton build"
-      },
-      {
-        "name": "protontricks",
-        "priority": "low",
-        "desc": "Winetricks wrapper for Proton"
       },
       { "name": "qbittorrent", "priority": "low", "desc": "Torrent client" },
       {
@@ -686,11 +670,15 @@
         "desc": "Graphically manage KVM, Xen, or LXC via libvirt"
       },
       {
+        "name": "virt-viewer",
+        "priority": "high",
+        "desc": "A lightweight interface for interacting with the graphical display of virtualized guest OS."
+      },
+      {
         "name": "qemu-full",
         "priority": "high",
         "desc": "Virtualization platform"
       },
-      { "name": "slack-desktop", "priority": "low", "desc": "Slack client" },
       {
         "name": "steam",
         "priority": "low",
@@ -936,6 +924,28 @@
       { "name": "hypridle", "priority": "low", "desc": "Hyprland idle daemon" }
     ],
     "unused": [
+      {
+        "name": "open-webui",
+        "priority": "none",
+        "desc": "Web UI and OpenAI API for various LLM runners, including Ollama"
+      },
+      { "name": "slack-desktop", "priority": "none", "desc": "Slack client" },
+      { "name": "nudoku", "priority": "none", "desc": "Terminal sudoku" },
+      {
+        "name": "protontricks",
+        "priority": "none",
+        "desc": "Winetricks wrapper for Proton"
+      },
+      {
+        "name": "libappindicator-gtk3",
+        "priority": "none",
+        "desc": "AppIndicator support for use with new Dropbox"
+      },
+      {
+        "name": "adbfs-rootless-git",
+        "priority": "none",
+        "desc": "Mount Android devices via ADB"
+      },
       {
         "name": "pd",
         "priority": "low",
@@ -1185,7 +1195,17 @@
         "priority": "low",
         "desc": "EPUB thumbnails"
       },
-      { "name": "evtest", "priority": "low", "desc": "Input device tester" }
+      { "name": "evtest", "priority": "low", "desc": "Input device tester" },
+      {
+        "name": "blueman",
+        "priority": "medium",
+        "desc": "GTK+ Bluetooth Manager"
+      },
+      {
+        "name": "blueberry",
+        "priority": "low",
+        "desc": "Bluetooth settings GUI"
+      }
     ]
   }
 }
