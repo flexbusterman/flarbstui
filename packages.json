@@ -2,11 +2,6 @@
   "packages": {
     "main": [
       {
-        "name": "find-cursor",
-        "priority": "medium",
-        "desc": "Simple XLib program to highlight the cursor position in X11"
-      },
-      {
         "name": "bluetui",
         "priority": "medium",
         "desc": "TUI for managing bluetooth devices"
@@ -540,6 +535,21 @@
 
     "extra": [
       {
+        "name": "hashcat",
+        "priority": "medium",
+        "desc": "Multithreaded advanced password recovery utility"
+      },
+      {
+        "name": "seclists",
+        "priority": "medium",
+        "desc": "Collection of multiple types of lists used during security assessments"
+      },
+      {
+        "name": "pinta",
+        "priority": "medium",
+        "desc": "Drawing/editing program modeled after Paint.NET. It's goal is to provide a simplified alternative to GIMP for casual users"
+      },
+      {
         "name": "traceroute",
         "priority": "medium",
         "desc": "Tracks the route taken by packets over an IP network"
@@ -633,7 +643,7 @@
       { "name": "gzdoom", "priority": "low", "desc": "Modern Doom engine" },
       {
         "name": "inkscape",
-        "priority": "low",
+        "priority": "medium",
         "desc": "Vector drawing program"
       },
       {
@@ -658,7 +668,7 @@
         "priority": "low",
         "desc": "Custom Proton build"
       },
-      { "name": "qbittorrent", "priority": "low", "desc": "Torrent client" },
+      { "name": "qbittorrent", "priority": "medium", "desc": "Torrent client" },
       {
         "name": "libvirt",
         "priority": "high",
@@ -924,6 +934,11 @@
       { "name": "hypridle", "priority": "low", "desc": "Hyprland idle daemon" }
     ],
     "unused": [
+      {
+        "name": "find-cursor",
+        "priority": "medium",
+        "desc": "Simple XLib program to highlight the cursor position in X11"
+      },
       {
         "name": "open-webui",
         "priority": "none",
