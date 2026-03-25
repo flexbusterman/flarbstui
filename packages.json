@@ -533,17 +533,35 @@
       }
     ],
 
-    "extra": [
+    "security": [
       {
         "name": "hashcat",
         "priority": "medium",
         "desc": "Multithreaded advanced password recovery utility"
       },
       {
+        "name": "pocl",
+        "priority": "medium",
+        "desc": "Portable OpenCL is an open-source implementation of OpenCL which can be easily adapted for new targets"
+      },
+      {
+        "name": "ocl-icd",
+        "priority": "medium",
+        "desc": "OpenCL ICD Bindings"
+      },
+      {
+        "name": "clinfo",
+        "priority": "medium",
+        "desc": "Simple OpenCL application that enumerates all available platform and device properties"
+      },
+      {
         "name": "seclists",
         "priority": "medium",
         "desc": "Collection of multiple types of lists used during security assessments"
-      },
+      }
+    ],
+
+    "extra": [
       {
         "name": "pinta",
         "priority": "medium",
