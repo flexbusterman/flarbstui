@@ -2,6 +2,11 @@
   "packages": {
     "main": [
       {
+        "name": "mkfsufs",
+        "priority": "high",
+        "desc": "ocfs2 tool chain by Oracle, including mkfs, tunefs, fsck, debugfs and utilities for ocfs2"
+      },
+      {
         "name": "bluetui",
         "priority": "medium",
         "desc": "TUI for managing bluetooth devices"
@@ -563,9 +568,9 @@
 
     "extra": [
       {
-        "name": "pinta",
+        "name": "pdftk",
         "priority": "medium",
-        "desc": "Drawing/editing program modeled after Paint.NET. It's goal is to provide a simplified alternative to GIMP for casual users"
+        "desc": "Command-line tool for working with PDFs"
       },
       {
         "name": "traceroute",
@@ -626,6 +631,11 @@
         "name": "docker",
         "priority": "medium",
         "desc": "Docker is a utility to pack, ship and run any application as a lightweight container"
+      },
+      {
+        "name": "docker-compose",
+        "priority": "medium",
+        "desc": "Fast, isolated development environments using Docker"
       },
       { "name": "blender", "priority": "low", "desc": "3D modeling software" },
       { "name": "brave-bin", "priority": "low", "desc": "Brave web browser" },
@@ -1061,9 +1071,9 @@
       { "name": "nvm", "priority": "low", "desc": "Node version manager" },
       { "name": "papirus-icon-theme", "priority": "low", "desc": "Icon set" },
       {
-        "name": "pacman-cleanup-hook",
-        "priority": "medium",
-        "desc": "Auto clean pacman cache"
+        "name": "paccache-hook",
+        "priority": "high",
+        "desc": "A configurable hook to cleanup the pacman package cache using paccache"
       },
       {
         "name": "oldschool-pc-fonts",
