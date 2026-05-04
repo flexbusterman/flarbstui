@@ -676,7 +676,7 @@
       },
       {
         "name": "libreoffice-fresh",
-        "priority": "low",
+        "priority": "medium",
         "desc": "Office suite"
       },
       {
@@ -803,11 +803,7 @@
         "priority": "low",
         "desc": "CLAP audio plugin collection"
       },
-      {
-        "name": "decent-sampler-bin",
-        "priority": "low",
-        "desc": "Sample-based instrument player"
-      },
+      ,
       { "name": "dexed", "priority": "low", "desc": "FM synthesizer plugin" },
       {
         "name": "distrho-ports",
@@ -961,7 +957,19 @@
       },
       { "name": "hypridle", "priority": "low", "desc": "Hyprland idle daemon" }
     ],
+    "security": [
+      {
+        "name": "sqlit",
+        "priority": "medium",
+        "desc": "The lazygit of SQL databases - a lightweight TUI for SQL Server, PostgreSQL, MySQL, SQLite, and more"
+      }
+    ],
     "unused": [
+      {
+        "name": "decent-sampler-bin",
+        "priority": "low",
+        "desc": "Sample-based instrument player"
+      },
       {
         "name": "find-cursor",
         "priority": "medium",
