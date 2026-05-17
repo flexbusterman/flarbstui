@@ -2,8 +2,13 @@
   "packages": {
     "main": [
       {
-        "name": "mkfsufs",
+        "name": "sysstat",
         "priority": "high",
+        "desc": "a collection of performance monitoring tools (iostat,isag,mpstat,pidstat,sadf,sar)"
+      },
+      {
+        "name": "mkfsufs",
+        "priority": "medium",
         "desc": "ocfs2 tool chain by Oracle, including mkfs, tunefs, fsck, debugfs and utilities for ocfs2"
       },
       {
@@ -18,7 +23,7 @@
       },
       {
         "name": "arch-install-scripts",
-        "priority": "high",
+        "priority": "medium",
         "desc": "Scripts to aid in installing Arch Linux"
       },
       {
@@ -28,7 +33,7 @@
       },
       {
         "name": "mpvc-git",
-        "priority": "high",
+        "priority": "medium",
         "desc": "An mpc-like CLI tool for mpv"
       },
       {
@@ -58,42 +63,42 @@
       },
       {
         "name": "vdirsyncer",
-        "priority": "high",
+        "priority": "medium",
         "desc": "Synchronize CalDAV and CardDAV"
       },
       {
         "name": "mesa",
-        "priority": "high",
+        "priority": "medium",
         "desc": "Open-source OpenGL drivers"
       },
       {
         "name": "lib32-mesa",
-        "priority": "high",
+        "priority": "medium",
         "desc": "Open-source OpenGL drivers - 32-bit"
       },
       {
         "name": "vulkan-intel",
-        "priority": "high",
+        "priority": "medium",
         "desc": "Open-source Vulkan driver for Intel GPUs"
       },
       {
         "name": "lib32-vulkan-intel",
-        "priority": "high",
+        "priority": "medium",
         "desc": "Open-source Vulkan driver for Intel GPUs - 32-bit"
       },
       {
         "name": "vulkan-icd-loader",
-        "priority": "high",
+        "priority": "medium",
         "desc": "Vulkan Installable Client Driver (ICD) Loader"
       },
       {
         "name": "lib32-vulkan-icd-loader",
-        "priority": "high",
+        "priority": "medium",
         "desc": "Vulkan Installable Client Driver (ICD) Loader (32-bit)"
       },
       {
         "name": "vulkan-tools",
-        "priority": "high",
+        "priority": "medium",
         "desc": "Vulkan tools and utilities"
       },
       {
@@ -123,7 +128,7 @@
       },
       {
         "name": "dnsmasq",
-        "priority": "high",
+        "priority": "medium",
         "desc": "DNS forwarder and DHCP server (dependency for qmenu)"
       },
       {
@@ -185,7 +190,7 @@
       { "name": "btop", "priority": "high", "desc": "Resource monitor" },
       {
         "name": "certbot-nginx",
-        "priority": "high",
+        "priority": "medium",
         "desc": "Auto HTTPS for NGINX"
       },
       {
@@ -245,11 +250,11 @@
         "priority": "medium",
         "desc": "Additional asciiart fonts for figlet"
       },
-      { "name": "fwupd", "priority": "high", "desc": "Firmware updater" },
+      { "name": "fwupd", "priority": "medium", "desc": "Firmware updater" },
       { "name": "fzf", "priority": "high", "desc": "Fuzzy finder" },
       {
         "name": "github-cli",
-        "priority": "medium",
+        "priority": "high",
         "desc": "GitHub command-line tool"
       },
       { "name": "gnupg", "priority": "high", "desc": "Encryption toolkit" },
@@ -303,21 +308,21 @@
       { "name": "lm_sensors", "priority": "high", "desc": "Hardware sensors" },
       { "name": "maim", "priority": "medium", "desc": "Screenshot tool" },
       { "name": "man", "priority": "high", "desc": "Manual pages" },
-      { "name": "mariadb", "priority": "medium", "desc": "Database server" },
+      { "name": "mariadb", "priority": "low", "desc": "Database server" },
       {
         "name": "mkcert",
         "priority": "medium",
         "desc": "Local HTTPS certificate tool"
       },
-      { "name": "ncdu", "priority": "low", "desc": "Disk usage explorer" },
-      { "name": "neofetch", "priority": "low", "desc": "System info tool" },
+      { "name": "ncdu", "priority": "high", "desc": "Disk usage explorer" },
+      { "name": "neofetch", "priority": "high", "desc": "System info tool" },
       { "name": "neovim", "priority": "high", "desc": "Vim-based editor" },
       {
         "name": "nethogs",
         "priority": "medium",
         "desc": "Network usage per process"
       },
-      { "name": "nginx", "priority": "high", "desc": "Web server" },
+      { "name": "nginx", "priority": "medium", "desc": "Web server" },
       { "name": "nodejs", "priority": "medium", "desc": "JavaScript runtime" },
       { "name": "notmuch", "priority": "low", "desc": "Email indexer" },
       {
@@ -344,7 +349,7 @@
       { "name": "nvtop", "priority": "low", "desc": "GPU process monitor" },
       {
         "name": "openssh-hpn",
-        "priority": "high",
+        "priority": "medium",
         "desc": "High-performance SSH"
       },
       { "name": "os-prober", "priority": "high", "desc": "Detects other OSes" },
@@ -355,13 +360,13 @@
       },
       {
         "name": "pam-gnupg",
-        "priority": "medium",
+        "priority": "high",
         "desc": "Unlock GPG with PAM"
       },
-      { "name": "pamixer", "priority": "low", "desc": "PulseAudio mixer" },
+      { "name": "pamixer", "priority": "high", "desc": "PulseAudio mixer" },
       {
         "name": "pandoc",
-        "priority": "low",
+        "priority": "medium",
         "desc": "Universal document converter"
       },
       {
@@ -419,7 +424,7 @@
         "priority": "high",
         "desc": "Mirrorlist optimizer"
       },
-      { "name": "ripgrep", "priority": "low", "desc": "Fast text search" },
+      { "name": "ripgrep", "priority": "high", "desc": "Fast text search" },
       { "name": "rsync", "priority": "high", "desc": "File syncing" },
       {
         "name": "rtcqs",
@@ -459,7 +464,7 @@
         "priority": "low",
         "desc": "Terminal countdown timer"
       },
-      { "name": "thermald", "priority": "high", "desc": "Thermal daemon" },
+      { "name": "thermald", "priority": "low", "desc": "Thermal daemon" },
       { "name": "timew", "priority": "low", "desc": "Time tracking" },
       { "name": "tldr", "priority": "high", "desc": "Simplified man pages" },
       {
@@ -469,7 +474,7 @@
       },
       {
         "name": "tree-sitter-cli",
-        "priority": "low",
+        "priority": "high",
         "desc": "Parser generator CLI"
       },
       {
@@ -803,7 +808,6 @@
         "priority": "low",
         "desc": "CLAP audio plugin collection"
       },
-      ,
       { "name": "dexed", "priority": "low", "desc": "FM synthesizer plugin" },
       {
         "name": "distrho-ports",
