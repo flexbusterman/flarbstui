@@ -2,6 +2,16 @@
   "packages": {
     "main": [
       {
+        "name": "xprintidle",
+        "priority": "high",
+        "desc": "Print the X server user idle time"
+      },
+      {
+        "name": "ueberzugpp",
+        "priority": "high",
+        "desc": "Command line utility which allows to display images in the terminal, written in C++"
+      },
+      {
         "name": "sysstat",
         "priority": "high",
         "desc": "a collection of performance monitoring tools (iostat,isag,mpstat,pidstat,sadf,sar)"
@@ -770,7 +780,7 @@
       },
       {
         "name": "wine",
-        "priority": "low",
+        "priority": "medium",
         "desc": "Windows compatibility layer"
       },
       {
@@ -832,7 +842,7 @@
       },
       { "name": "lingot", "priority": "low", "desc": "Guitar tuner" },
       { "name": "lv2-plugins", "priority": "low", "desc": "LV2 audio plugins" },
-      { "name": "mpc", "priority": "low", "desc": "MPD client" },
+      { "name": "mpc", "priority": "medium", "desc": "MPD client" },
       { "name": "mpd", "priority": "medium", "desc": "Music Player Daemon" },
       { "name": "ncmpcpp", "priority": "low", "desc": "MPD interface" },
       {
