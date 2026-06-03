@@ -2,6 +2,26 @@
   "packages": {
     "main": [
       {
+        "name": "kernel-modules-hook",
+        "priority": "high",
+        "desc": "Keeps your system fully functional after a kernel upgrade"
+      },
+      {
+        "name": "etckeeper",
+        "priority": "medium",
+        "desc": "Collection of tools to let /etc be stored in a git, hg or bzr repository"
+      },
+      {
+        "name": "python-pynvim",
+        "priority": "high",
+        "desc": "Python client for Neovim"
+      },
+      {
+        "name": "xcalib",
+        "priority": "high",
+        "desc": "Load 'vcgt'-tag profiles to X-server on the calibration stage"
+      },
+      {
         "name": "xprintidle",
         "priority": "high",
         "desc": "Print the X server user idle time"
@@ -269,9 +289,9 @@
       },
       { "name": "gnupg", "priority": "high", "desc": "Encryption toolkit" },
       {
-        "name": "gtrash-bin",
+        "name": "gtrash",
         "priority": "high",
-        "desc": "Binary build of gtrash"
+        "desc": "A Trash CLI manager written in Go"
       },
       {
         "name": "hardcode-tray",
@@ -385,7 +405,11 @@
         "desc": "Metadata tool"
       },
       { "name": "picom", "priority": "high", "desc": "X11 compositor" },
-      { "name": "playerctl", "priority": "low", "desc": "Media control CLI" },
+      {
+        "name": "playerctl",
+        "priority": "medium",
+        "desc": "Media control CLI"
+      },
       {
         "name": "pm-utils",
         "priority": "medium",
@@ -528,8 +552,12 @@
       },
       { "name": "yazi", "priority": "high", "desc": "Terminal file manager" },
       { "name": "yt-dlp", "priority": "low", "desc": "Video downloader" },
-      { "name": "zathura", "priority": "low", "desc": "PDF viewer" },
-      { "name": "zathura-pdf-mupdf", "priority": "low", "desc": "PDF backend" },
+      { "name": "zathura", "priority": "medium", "desc": "PDF viewer" },
+      {
+        "name": "zathura-pdf-mupdf",
+        "priority": "medium",
+        "desc": "PDF backend"
+      },
       { "name": "zsh", "priority": "high", "desc": "Shell" },
       {
         "name": "zsh-autocomplete",
@@ -682,7 +710,7 @@
         "priority": "medium",
         "desc": "Universal app packaging"
       },
-      { "name": "gimp", "priority": "low", "desc": "Image editor" },
+      { "name": "gimp", "priority": "medium", "desc": "Image editor" },
       { "name": "gzdoom", "priority": "low", "desc": "Modern Doom engine" },
       {
         "name": "inkscape",
@@ -841,7 +869,11 @@
         "desc": "Music engraving system"
       },
       { "name": "lingot", "priority": "low", "desc": "Guitar tuner" },
-      { "name": "lv2-plugins", "priority": "low", "desc": "LV2 audio plugins" },
+      {
+        "name": "lv2-plugins",
+        "priority": "medium",
+        "desc": "LV2 audio plugins"
+      },
       { "name": "mpc", "priority": "medium", "desc": "MPD client" },
       { "name": "mpd", "priority": "medium", "desc": "Music Player Daemon" },
       { "name": "ncmpcpp", "priority": "low", "desc": "MPD interface" },
