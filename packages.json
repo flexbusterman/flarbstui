@@ -2,6 +2,21 @@
   "packages": {
     "main": [
       {
+        "name": "entr",
+        "priority": "high",
+        "desc": "Run arbitrary commands when files change"
+      },
+      {
+        "name": "vim",
+        "priority": "high",
+        "desc": "Vi Improved, a highly configurable, improved version of the vi text editor"
+      },
+      {
+        "name": "dmidecode",
+        "priority": "high",
+        "desc": "Desktop Management Interface table related utilities"
+      },
+      {
         "name": "kernel-modules-hook",
         "priority": "high",
         "desc": "Keeps your system fully functional after a kernel upgrade"
