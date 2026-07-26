@@ -626,6 +626,26 @@
 
     "extra": [
       {
+        "name": "lib32-vulkan-icd-loader",
+        "priority": "high",
+        "desc": "Vulkan Installable Client Driver (ICD) Loader (32-bit)"
+      },
+      {
+        "name": "lib32-vulkan-intel",
+        "priority": "high",
+        "desc": "Open-source Vulkan driver for Intel GPUs (32-bit)"
+      },
+      {
+        "name": "vulkan-icd-loader",
+        "priority": "high",
+        "desc": "Vulkan Installable Client Driver (ICD) Loader"
+      },
+      {
+        "name": "vulkan-intel",
+        "priority": "high",
+        "desc": "Open-source Vulkan driver for Intel GPUs"
+      },
+      {
         "name": "pdftk",
         "priority": "medium",
         "desc": "Command-line tool for working with PDFs"
