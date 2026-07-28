@@ -280,7 +280,7 @@
       {
         "name": "fd",
         "priority": "high",
-        "desc": "Fast search alternative to find"
+        "desc": "Simple, fast and user-friendly alternative to find"
       },
       { "name": "feh", "priority": "high", "desc": "Lightweight image viewer" },
       { "name": "ffmpeg", "priority": "high", "desc": "Media toolkit" },
