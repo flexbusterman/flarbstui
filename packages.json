@@ -626,6 +626,11 @@
 
     "extra": [
       {
+        "name": "raylib",
+        "priority": "high",
+        "desc": "Simple and easy-to-use game programming library"
+      },
+      {
         "name": "lib32-vulkan-icd-loader",
         "priority": "high",
         "desc": "Vulkan Installable Client Driver (ICD) Loader (32-bit)"
