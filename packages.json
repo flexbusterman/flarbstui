@@ -2,6 +2,11 @@
   "packages": {
     "main": [
       {
+        "name": "sof-firmware",
+        "priority": "high",
+        "desc": "Sound Open Firmware"
+      },
+      {
         "name": "entr",
         "priority": "high",
         "desc": "Run arbitrary commands when files change"
@@ -860,6 +865,11 @@
       { "name": "zig", "priority": "low", "desc": "Programming language" }
     ],
     "audio": [
+      {
+        "name": "musescore-bin",
+        "priority": "low",
+        "desc": "Create, play and print beautiful sheet music. Appimage version."
+      },
       {
         "name": "fluida.lv2",
         "priority": "medium",
