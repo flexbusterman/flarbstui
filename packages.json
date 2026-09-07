@@ -2,6 +2,21 @@
   "packages": {
     "main": [
       {
+        "name": "socat",
+        "priority": "high",
+        "desc": "Multipurpose relay"
+      },
+      {
+        "name": "bun",
+        "priority": "low",
+        "desc": "Incredibly fast JavaScript runtime, bundler, test runner, and package manager – all in one"
+      },
+      {
+        "name": "bind",
+        "priority": "high",
+        "desc": "A complete, highly portable implementation of the DNS protocol"
+      },
+      {
         "name": "sof-firmware",
         "priority": "high",
         "desc": "Sound Open Firmware"
@@ -866,6 +881,11 @@
     ],
     "audio": [
       {
+        "name": "termusic",
+        "priority": "high",
+        "desc": "Music Player TUI written in Rust"
+      },
+      {
         "name": "musescore-bin",
         "priority": "low",
         "desc": "Create, play and print beautiful sheet music. Appimage version."
@@ -924,9 +944,6 @@
         "priority": "medium",
         "desc": "LV2 audio plugins"
       },
-      { "name": "mpc", "priority": "medium", "desc": "MPD client" },
-      { "name": "mpd", "priority": "medium", "desc": "Music Player Daemon" },
-      { "name": "ncmpcpp", "priority": "low", "desc": "MPD interface" },
       {
         "name": "neural-amp-modeler-ui-lv2",
         "priority": "low",
@@ -1061,6 +1078,9 @@
       }
     ],
     "unused": [
+      { "name": "mpc", "priority": "medium", "desc": "MPD client" },
+      { "name": "mpd", "priority": "medium", "desc": "Music Player Daemon" },
+      { "name": "ncmpcpp", "priority": "low", "desc": "MPD interface" },
       {
         "name": "decent-sampler-bin",
         "priority": "low",
